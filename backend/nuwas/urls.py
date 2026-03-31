@@ -8,5 +8,5 @@ urlpatterns = [
     path("api/", include("landing.urls")),
 ]
 
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+# Serve media files (will be handled by nginx in production later)
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
