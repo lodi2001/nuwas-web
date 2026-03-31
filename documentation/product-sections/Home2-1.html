@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نواس الابتكارية لتقنية المعلومات | Nuwas Innovative IT</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary-blue: #003399; /* Nuwas Deep Blue */
+            --accent-cyan: #00bcd4;  /* Nuwas Cyan */
+            --accent-purple: #7c4dff;
+            --white: #ffffff;
+            --light-bg: #f8fbff;
+            --text-main: #1a237e;
+            --text-muted: #5f6368;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Tajawal', sans-serif; }
+        body { background-color: var(--white); color: var(--text-main); overflow-x: hidden; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; position: relative; z-index: 2; }
+        
+        /* Subtle Neural Grid Background */
+        .neural-section {
+            background-color: var(--white);
+            background-image: 
+                radial-gradient(circle at 50% 50%, rgba(0, 188, 212, 0.05) 0%, transparent 60%),
+                linear-gradient(rgba(0, 51, 153, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 51, 153, 0.03) 1px, transparent 1px);
+            background-size: 100% 100%, 40px 40px, 40px 40px;
+            padding: 100px 0;
+            position: relative;
+            min-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .section-title { text-align: center; margin-bottom: 60px; }
+        .section-title h2 { 
+            font-size: 3rem; 
+            color: var(--primary-blue); 
+            margin-bottom: 15px; 
+            font-weight: 800;
+        }
+        .section-title p { color: var(--text-muted); font-size: 1.2rem; }
+
+        .network-container {
+            position: relative;
+            width: 100%;
+            max-width: 1000px;
+            height: 600px;
+            margin: 0 auto;
+        }
+
+        /* SVG Neural Pathways */
+        #neural-svg {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .neural-path {
+            fill: none;
+            stroke: url(#line-gradient);
+            stroke-width: 2.5;
+            stroke-dasharray: 10 15;
+            animation: dataFlow 30s linear infinite;
+            opacity: 0.7;
+        }
+
+        .neural-joint {
+            fill: var(--white);
+            stroke: var(--accent-cyan);
+            stroke-width: 3;
+            filter: drop-shadow(0 0 8px rgba(0, 188, 212, 0.6));
+            transition: 0.3s;
+        }
+
+        @keyframes dataFlow {
+            from { stroke-dashoffset: 1000; }
+            to { stroke-dashoffset: 0; }
+        }
+
+        /* Central Nuwas Logo Core */
+        .core-node {
+            position: absolute;
+            top: 50%; left: 50%;
+            /* Translation is handled by JS for centering */
+            width: 220px; height: 220px;
+            background: var(--white);
+            border-radius: 50%;
+            z-index: 5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 
+                0 15px 35px rgba(0, 51, 153, 0.1),
+                0 0 0 10px rgba(0, 188, 212, 0.05),
+                inset 0 0 20px rgba(0, 51, 153, 0.05);
+            padding: 30px;
+            border: 1px solid rgba(0, 51, 153, 0.1);
+        }
+
+        .core-node img {
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+            animation: heartbeat 4s ease-in-out infinite;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        /* Product Nodes */
+        .product-node {
+            position: absolute;
+            width: 180px; height: 180px;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 188, 212, 0.2);
+            border-radius: 24px;
+            z-index: 4;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0, 51, 153, 0.08);
+            cursor: pointer;
+            text-align: center;
+            transition: box-shadow 0.3s ease, border-color 0.3s ease;
+        }
+
+        .product-node img {
+            max-width: 90%;
+            max-height: 80px;
+            object-fit: contain;
+            margin-bottom: 15px;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .product-node span {
+            color: var(--primary-blue);
+            font-size: 1rem;
+            font-weight: 700;
+        }
+
+        /* Interaction */
+        .product-node:hover {
+            border-color: var(--accent-cyan);
+            box-shadow: 0 15px 40px rgba(0, 188, 212, 0.2);
+            z-index: 10;
+        }
+        .product-node:hover img {
+            transform: scale(1.15) translateY(-5px);
+        }
+
+        /* Base Positions (Used by JS as anchor points) */
+        #node-1 { top: 5%; left: 5%; }
+        #node-2 { top: 5%; right: 5%; }
+        #node-3 { bottom: 5%; left: 10%; }
+        #node-4 { bottom: 5%; right: 10%; }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .network-container { height: 800px; }
+            .core-node { width: 160px; height: 160px; padding: 20px; }
+            .product-node { width: 140px; height: 140px; padding: 15px; }
+            .product-node img { max-height: 50px; }
+            .product-node span { font-size: 0.85rem; }
+            
+            #node-1 { top: 2%; left: 50%; margin-left: -70px; }
+            #node-2 { top: 25%; left: 50%; margin-left: -70px; }
+            #node-3 { bottom: 25%; left: 50%; margin-left: -70px; }
+            #node-4 { bottom: 2%; left: 50%; margin-left: -70px; }
+        }
+    </style>
+</head>
+<body>
+
+    <section class="neural-section" id="products">
+        <div class="container section-title" data-aos="fade-down">
+            <h2>نطور بذكاء لنواكب المستقبل</h2>
+            <p>منظومة متكاملة من المنتجات المدعومة بالذكاء الاصطناعي ترتبط بعقل مركزي واحد</p>
+        </div>
+
+        <div class="network-container" id="network-container">
+            <svg id="neural-svg"></svg>
+
+            <div class="core-node" id="ai-core">
+                <img src="YOUR_PATH/Nuwas Visual assets 2-01.png" alt="Nuwas Core AI">
+            </div>
+
+            <div class="product-node" id="node-1">
+                <img src="YOUR_PATH/nuvideo.ai-v2.jpeg" alt="NUVIDEO.AI">
+                <span>تحليل الفيديو</span>
+            </div>
+
+            <div class="product-node" id="node-2">
+                <img src="YOUR_PATH/image_f4ff30.png" alt="Nu Theme">
+                <span>إدارة المشاريع</span>
+            </div>
+
+            <div class="product-node" id="node-3">
+                <img src="YOUR_PATH/image_f4ff6a.png" alt="TalaBot">
+                <span>التسوق الذكي</span>
+            </div>
+
+            <div class="product-node" id="node-4">
+                <img src="YOUR_PATH/nuagent-logo.png" alt="Nuagent">
+                <span>وكيلك الذكي</span>
+            </div>
+        </div>
+    </section>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ duration: 1000, once: true });
+
+        // Physics Engine for Randomized Organic Movement
+        const container = document.getElementById('network-container');
+        const svg = document.getElementById('neural-svg');
+        const core = document.getElementById('ai-core');
+        
+        // Configuration for nodes
+        const nodesData = [
+            { el: document.getElementById('node-1'), seedX: Math.random() * 100, seedY: Math.random() * 100, speed: 0.0008, radius: 25 },
+            { el: document.getElementById('node-2'), seedX: Math.random() * 100, seedY: Math.random() * 100, speed: 0.0009, radius: 20 },
+            { el: document.getElementById('node-3'), seedX: Math.random() * 100, seedY: Math.random() * 100, speed: 0.0007, radius: 30 },
+            { el: document.getElementById('node-4'), seedX: Math.random() * 100, seedY: Math.random() * 100, speed: 0.0010, radius: 22 }
+        ];
+
+        // Ensure the core is perfectly centered
+        function centerCore() {
+            core.style.transform = `translate(-50%, -50%)`;
+        }
+
+        // Draw organic curved neural lines
+        function drawNetwork(time) {
+            if (!svg || !core) return;
+            
+            const containerRect = container.getBoundingClientRect();
+            
+            // Get Core Center
+            const coreRect = core.getBoundingClientRect();
+            const coreX = coreRect.left - containerRect.left + (coreRect.width / 2);
+            const coreY = coreRect.top - containerRect.top + (coreRect.height / 2);
+
+            let svgHTML = `
+                <defs>
+                    <linearGradient id="line-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#003399" />
+                        <stop offset="50%" stop-color="#00bcd4" />
+                        <stop offset="100%" stop-color="#003399" />
+                    </linearGradient>
+                </defs>
+            `;
+
+            // Process each product node
+            nodesData.forEach(node => {
+                // 1. Calculate random organic movement using Sine/Cosine
+                const offsetX = Math.sin(time * node.speed + node.seedX) * node.radius;
+                const offsetY = Math.cos(time * node.speed + node.seedY) * node.radius;
+                
+                // Apply the movement
+                node.el.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
+
+                // 2. Get the new physical position of the node
+                const rect = node.el.getBoundingClientRect();
+                const nodeX = rect.left - containerRect.left + (rect.width / 2);
+                const nodeY = rect.top - containerRect.top + (rect.height / 2);
+
+                // 3. Create a Bezier Curve (Neural path)
+                // Control points are offset to create a "wire" or "synapse" curve rather than a straight line
+                const ctrlX = coreX; 
+                const ctrlY = nodeY;
+
+                // Draw the curved path
+                svgHTML += `<path class="neural-path" d="M ${coreX} ${coreY} Q ${ctrlX} ${ctrlY} ${nodeX} ${nodeY}"></path>`;
+                
+                // Draw AI Joint (Synapse) at the product connection
+                svgHTML += `<circle class="neural-joint" cx="${nodeX}" cy="${nodeY}" r="6"></circle>`;
+            });
+
+            // Draw Central Core AI Joints
+            svgHTML += `<circle class="neural-joint" cx="${coreX}" cy="${coreY}" r="8"></circle>`;
+
+            svg.innerHTML = svgHTML;
+        }
+
+        // Animation Loop
+        function animate(time) {
+            drawNetwork(time);
+            requestAnimationFrame(animate);
+        }
+
+        // Initialize
+        window.addEventListener('load', () => {
+            centerCore();
+            requestAnimationFrame(animate);
+        });
+
+        window.addEventListener('resize', centerCore);
+
+    </script>
+</body>
+</html>

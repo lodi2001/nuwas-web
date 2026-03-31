@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نواس الابتكارية لتقنية المعلومات | Nuwas Innovative IT</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary-blue: #003399; /* Deep Royal from logo */
+            --accent-cyan: #40c4ff;   /* Bright Cyan from logo */
+            --light-bg: #f8fbff;
+            --white: #ffffff;
+            --text-main: #1a1a1a;
+            --text-muted: #5f6368;
+            --gold: #ffd700;
+            --glass: rgba(255, 255, 255, 0.8);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Tajawal', 'Inter', sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--white);
+            color: var(--text-main);
+            overflow-x: hidden;
+        }
+
+        /* --- Global Components --- */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--primary-blue);
+            margin-bottom: 10px;
+        }
+
+        .section-title p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.3s all ease;
+            display: inline-block;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-blue), var(--accent-cyan));
+            color: white;
+            box-shadow: 0 4px 15px rgba(0, 51, 153, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 51, 153, 0.4);
+        }
+
+        .btn-outline {
+            border: 2px solid var(--primary-blue);
+            color: var(--primary-blue);
+            background: transparent;
+        }
+
+        .btn-outline:hover {
+            background: var(--primary-blue);
+            color: white;
+        }
+
+        /* --- Navigation --- */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 15px 0;
+            transition: 0.4s;
+            background: transparent;
+        }
+
+        nav.scrolled {
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            padding: 10px 0;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-weight: bold;
+            font-size: 1.5rem;
+            color: var(--primary-blue);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-img {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary-blue), var(--accent-cyan));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-main);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-cyan);
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            background: radial-gradient(circle at 10% 20%, rgba(216, 241, 255, 0.3) 0%, rgba(255, 255, 255, 1) 90%);
+            overflow: hidden;
+        }
+
+        .hero-content {
+            flex: 1;
+            z-index: 2;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            color: var(--primary-blue);
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            margin-bottom: 30px;
+            max-width: 600px;
+        }
+
+        .hero-visual {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            position: relative;
+        }
+
+        .ai-blob {
+            width: 400px;
+            height: 400px;
+            background: linear-gradient(135deg, var(--primary-blue), var(--accent-cyan));
+            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+            animation: morph 8s ease-in-out infinite;
+            filter: blur(40px);
+            opacity: 0.2;
+            position: absolute;
+        }
+
+        @keyframes morph {
+            0% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
+            50% { border-radius: 50% 50% 20% 80% / 25% 80% 20% 75%; }
+            100% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
+        }
+
+        /* --- Stats Strip --- */
+        .stats-strip {
+            background: var(--white);
+            padding: 60px 0;
+            box-shadow: 0 -10px 30px rgba(0,0,0,0.02);
+            border-top: 1px solid #eee;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            text-align: center;
+        }
+
+        .stat-item h3 {
+            font-size: 2.5rem;
+            color: var(--primary-blue);
+        }
+
+        /* --- Cards & Sections --- */
+        .section-padding {
+            padding: 100px 0;
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .card {
+            background: var(--white);
+            padding: 40px;
+            border-radius: 20px;
+            border: 1px solid #f0f0f0;
+            transition: 0.4s;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 51, 153, 0.08);
+            border-color: var(--accent-cyan);
+        }
+
+        .card i {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--primary-blue), var(--accent-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* --- Timeline --- */
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 2px;
+            background: var(--accent-cyan);
+            top: 0; bottom: 0; left: 50%;
+            margin-left: -1px;
+        }
+
+        .t-container {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+        }
+
+        .t-left { left: 0; text-align: left; }
+        .t-right { left: 50%; text-align: right; }
+
+        .t-container::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            right: -10px;
+            background-color: var(--white);
+            border: 4px solid var(--primary-blue);
+            top: 15px;
+            border-radius: 50%;
+            z-index: 1;
+        }
+
+        .t-left::after { left: -10px; }
+
+        /* --- RFP Form --- */
+        .rfp-section {
+            background-color: var(--light-bg);
+            border-radius: 40px;
+            padding: 80px 40px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .full-width { grid-column: span 2; }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 3px rgba(0, 51, 153, 0.1);
+        }
+
+        /* --- Footer --- */
+        footer {
+            background: #0a0e27;
+            color: white;
+            padding: 80px 0 20px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+
+        .footer-col h4 { margin-bottom: 20px; font-size: 1.2rem; }
+        .footer-col ul { list-style: none; }
+        .footer-col ul li { margin-bottom: 10px; }
+        .footer-col ul li a { color: #ccc; text-decoration: none; transition: 0.3s; }
+        .footer-col ul li a:hover { color: var(--accent-cyan); }
+
+        .social-links { display: flex; gap: 15px; margin-top: 20px; }
+        .social-links a { color: white; font-size: 1.5rem; }
+
+        /* --- Responsive --- */
+        @media (max-width: 992px) {
+            .nav-links { display: none; }
+            .hero { flex-direction: column; text-align: center; padding-top: 120px; }
+            .hero-content h1 { font-size: 2.5rem; }
+            .card-grid { grid-template-columns: repeat(2, 1fr); }
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+            .form-grid { grid-template-columns: 1fr; }
+            .full-width { grid-column: span 1; }
+        }
+
+        @media (max-width: 600px) {
+            .card-grid { grid-template-columns: 1fr; }
+            .stats-grid { grid-template-columns: 1fr 1fr; gap: 20px; }
+            .footer-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav id="navbar">
+        <div class="container nav-container">
+            <div class="logo">
+                <div class="logo-img">ن</div>
+                Nuwas Innovative
+            </div>
+            
+            <ul class="nav-links">
+                <li><a href="#home">الرئيسية</a></li>
+                <li><a href="#learn">تعلّم معنا</a></li>
+                <li><a href="#achievements">الإنجازات</a></li>
+                <li><a href="#services">الخدمات</a></li>
+                <li><a href="#products">المنتجات</a></li>
+                <li><a href="#news">الأخبار</a></li>
+            </ul>
+
+            <div class="nav-actions">
+                <a href="#" style="color: var(--primary-blue); font-weight: bold; text-decoration: none;">EN</a>
+                <a href="#rfp" class="btn btn-primary">طلب عرض سعر</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero" id="home">
+        <div class="container" style="display: flex; align-items: center;">
+            <div class="hero-content" data-aos="fade-left">
+                <h1>نبتكر حلولاً ذكية تُشكّل المستقبل</h1>
+                <p>نواس الابتكارية — شريكك الموثوق في المملكة العربية السعودية للتحول الرقمي وتطوير حلول الذكاء الاصطناعي المتطورة.</p>
+                <div style="display: flex; gap: 15px;">
+                    <a href="#services" class="btn btn-primary">اكتشف خدماتنا</a>
+                    <a href="#rfp" class="btn btn-outline">تواصل معنا</a>
+                </div>
+            </div>
+            <div class="hero-visual" data-aos="zoom-in">
+                <div class="ai-blob"></div>
+                <img src="https://cdn-icons-png.flaticon.com/512/2103/2103633.png" alt="AI Illustration" style="width: 80%; position: relative; z-index: 5;">
+            </div>
+        </div>
+    </section>
+
+    <section class="stats-strip">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <h3>+25</h3>
+                    <p>سنة خبرة</p>
+                </div>
+                <div class="stat-item">
+                    <h3>+50</h3>
+                    <p>مشروع منجز</p>
+                </div>
+                <div class="stat-item">
+                    <h3>+15</h3>
+                    <p>عميل حكومي</p>
+                </div>
+                <div class="stat-item">
+                    <h3>+10</h3>
+                    <p>منتجات ذكاء اصطناعي</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-padding" id="learn">
+        <div class="container">
+            <div class="section-title">
+                <h2>تعلّم مع نواس</h2>
+                <p>محتوى تعليمي متخصص لبناء جيل تقني مبتكر</p>
+            </div>
+            <div class="card-grid">
+                <div class="card" data-aos="fade-up">
+                    <i class="fas fa-brain"></i>
+                    <h3>دورات الذكاء الاصطناعي</h3>
+                    <p>تعلم أساسيات وتطبيقات تعلم الآلة والذكاء الاصطناعي من الخبراء.</p>
+                </div>
+                <div class="card" data-aos="fade-up" data-aos-delay="100">
+                    <i class="fas fa-laptop-code"></i>
+                    <h3>ورش عمل تقنية</h3>
+                    <p>جلسات تدريبية عملية على أحدث التقنيات البرمجية العالمية.</p>
+                </div>
+                <div class="card" data-aos="fade-up" data-aos-delay="200">
+                    <i class="fas fa-newspaper"></i>
+                    <h3>مقالات ومدونات</h3>
+                    <p>ابقَ على اطلاع بأحدث التوجهات في عالم التحول الرقمي.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-padding" id="services" style="background-color: var(--light-bg);">
+        <div class="container">
+            <div class="section-title">
+                <h2>خدماتنا</h2>
+                <p>حلول تقنية متكاملة مخصصة لاحتياجات عملك</p>
+            </div>
+            <div class="card-grid">
+                <div class="card">
+                    <i class="fas fa-code"></i>
+                    <h3>تطوير البرمجيات</h3>
+                    <p>بناء أنظمة مخصصة وتطبيقات ويب سحابية عالية الأداء.</p>
+                </div>
+                <div class="card">
+                    <i class="fas fa-robot"></i>
+                    <h3>حلول الذكاء الاصطناعي</h3>
+                    <p>تحليل البيانات، الرؤية الحاسوبية، ومعالجة اللغات الطبيعية.</p>
+                </div>
+                <div class="card">
+                    <i class="fas fa-mobile-alt"></i>
+                    <h3>تطبيقات الجوال</h3>
+                    <p>تطبيقات مبتكرة لأنظمة iOS و Android بتجربة مستخدم متميزة.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-padding" id="products">
+        <div class="container">
+            <div class="section-title">
+                <h2>منتجاتنا المبتكرة</h2>
+                <p>أدوات تقنية صُممت لتمكين المؤسسات</p>
+            </div>
+            <div class="card-grid">
+                <div class="card" style="text-align: right;">
+                    <h4 style="color: var(--accent-cyan); margin-bottom: 10px;">NUVIDEO.AI</h4>
+                    <p>منصة ذكية لتحليل واسترجاع الفيديو بالذكاء الاصطناعي.</p>
+                    <ul style="margin: 15px 20px; font-size: 0.9rem;">
+                        <li>تعرف آلي على الوجوه</li>
+                        <li>تحليل السلوك اللحظي</li>
+                        <li>تقارير ذكاء أعمال</li>
+                    </ul>
+                    <a href="#" class="btn btn-outline" style="padding: 5px 20px;">المزيد</a>
+                </div>
+                </div>
+        </div>
+    </section>
+
+    <section class="section-padding" id="rfp">
+        <div class="container">
+            <div class="rfp-section" data-aos="fade-up">
+                <div class="section-title">
+                    <h2>طلب عرض سعر</h2>
+                    <p>ابدأ رحلة التحول الرقمي معنا اليوم</p>
+                </div>
+                <form>
+                    <div class="form-grid">
+                        <input type="text" placeholder="الاسم الكامل" required>
+                        <input type="email" placeholder="البريد الإلكتروني" required>
+                        <input type="tel" placeholder="رقم الجوال (966+)" required>
+                        <input type="text" placeholder="اسم الجهة / الشركة">
+                        <select class="full-width">
+                            <option value="">نوع الخدمة المطلوبة</option>
+                            <option>تطوير برمجيات</option>
+                            <option>ذكاء اصطناعي</option>
+                            <option>تحول رقمي</option>
+                        </select>
+                        <textarea class="full-width" rows="4" placeholder="وصف المشروع"></textarea>
+                        <button type="submit" class="btn btn-primary full-width" style="font-size: 1.1rem;">إرسال الطلب</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="logo" style="color: white; margin-bottom: 20px;">نواس الابتكارية</div>
+                    <p style="color: #ccc; line-height: 1.6;">شركة رائدة في تقديم الحلول البرمجية والذكاء الاصطناعي، نساهم في تحقيق رؤية المملكة 2030 من خلال الابتكار التقني.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>روابط سريعة</h4>
+                    <ul>
+                        <li><a href="#home">الرئيسية</a></li>
+                        <li><a href="#services">الخدمات</a></li>
+                        <li><a href="#products">المنتجات</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>تواصل معنا</h4>
+                    <ul>
+                        <li><i class="fas fa-envelope"></i> info@nuwas.sa</li>
+                        <li><i class="fas fa-phone"></i> +966 500 000 000</li>
+                        <li><i class="fas fa-map-marker-alt"></i> جدة - الرياض، السعودية</li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>النشرة البريدية</h4>
+                    <input type="email" placeholder="بريدك الإلكتروني" style="background: #1a1f3d; border: none; color: white; margin-bottom: 10px;">
+                    <button class="btn btn-primary" style="width: 100%;">اشتراك</button>
+                </div>
+            </div>
+            <div style="text-align: center; border-top: 1px solid #222; padding-top: 20px; font-size: 0.9rem; color: #888;">
+                جميع الحقوق محفوظة © 2026 نواس الابتكارية لتقنية المعلومات
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Initialize Animations
+        AOS.init({
+            duration: 1000,
+            once: true
+        });
+
+        // Navbar Scroll Effect
+        window.addEventListener('scroll', function() {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+    </script>
+</body>
+</html>

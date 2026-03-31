@@ -1,0 +1,26 @@
+I am building a Next.js landing page for an AI software company called "Nuwas Innovative IT". I need you to create a highly interactive, animated React component called `NeuralProductsSection.tsx`.
+
+### The Visual Concept ("نطور بذكاء لنواكب المستقبل")
+Instead of a standard grid of product cards, I want a "Neural Network" visualization. 
+- **The Core:** The Nuwas logo sits in the center of the screen, enclosed in a clean white circular core with a subtle pulsing heartbeat animation and soft blue/cyan glassmorphism shadows.
+- **The Nodes:** Our product logos orbit this central core. They aren't just floating up and down; they use organic, randomized trigonometric drifting (sine/cosine math) to move like living cells or neural nodes.
+- **The Connections:** Dynamic SVG Bezier curves (Quadratic `Q` paths) connect the exact center of the core to the exact center of each drifting product node. 
+- **The Synapses:** At the exact points where the SVG lines meet the product nodes and the core, there should be glowing SVG circles (`<circle>`) acting as "AI joints" or synapses.
+- **The Aesthetic:** Clean, brilliant white background with a very subtle neural grid texture. Premium glassmorphism cards for the products.
+
+### The Products (Nodes)
+Please configure the component to map through these specific products based on the assets I have:
+1. **NUVIDEO.AI** (Video Analysis)
+2. **NUSport.AI** (Sports AI)
+3. **NuSuite** (which includes NuPedia Research, NuFIX, NuChat, Magic Report)
+4. **TalaBot** (Smart Shopping)
+5. **Nuagent** (Smart Agent)
+
+### Technical Implementation Requirements (CRITICAL FOR REACT)
+1. **Performance:** Because this requires a 60fps animation loop for the drifting nodes and the connecting SVG lines, **DO NOT use React `useState` for the animation loop** (it will cause infinite re-renders and lag). 
+2. **The Physics Engine:** Use a `useEffect` with `requestAnimationFrame`. Use React `useRef` to grab the DOM elements of the nodes and the `<svg>` container. Mutate the `.style.transform` of the nodes and update the `.innerHTML` of the SVG directly inside the animation frame.
+3. **Responsiveness:** Calculate the bounding rectangles (`getBoundingClientRect`) dynamically so the SVG lines stay perfectly glued to the HTML nodes even if the browser window is resized. On mobile, the nodes should stack vertically but still drift and stay connected to the center.
+4. **Integration:** Design this to drop right into my existing `page.tsx` structure. It should take a `SectionHeader` prop just like my other components.
+
+### Structure Needed
+Provide the complete code for `components/NeuralProductsSection.tsx`. Include all necessary CSS (either via CSS modules, Tailwind, or standard CSS based on best practices for this kind of specific geometric layout). Make sure the `src` paths for the images are easily adjustable strings in an array at the top of the component.
