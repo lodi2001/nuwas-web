@@ -100,6 +100,7 @@ CORS_ALLOWED_ORIGINS = [
     o.strip()
     for o in os.getenv("CORS_ALLOWED_ORIGINS", "http://localhost:3008").split(",")
 ]
+CORS_URLS_REGEX = r"^.*$"
 
 # DRF
 REST_FRAMEWORK = {
