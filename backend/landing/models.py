@@ -1,4 +1,9 @@
+import os
+import subprocess
+import tempfile
+
 from django.db import models
+from django.core.files import File
 
 
 class SingletonModel(models.Model):
@@ -201,6 +206,49 @@ class VideoBanner(SingletonModel):
 
     def __str__(self):
         return "Video Banner"
+
+    def save(self, *args, **kwargs):
+        # Save first so the file is written to disk
+        super().save(*args, **kwargs)
+
+        if self.video and self.video.name and os.path.exists(self.video.path):
+            self._compress_video()
+
+    def _compress_video(self):
+        """Compress uploaded video with ffmpeg for web delivery."""
+        original_path = self.video.path
+        original_size = os.path.getsize(original_path)
+
+        # Skip if already small (under 2MB)
+        if original_size < 2 * 1024 * 1024:
+            return
+
+        with tempfile.NamedTemporaryFile(suffix=".mp4", delete=False) as tmp:
+            tmp_path = tmp.name
+
+        try:
+            result = subprocess.run(
+                [
+                    "ffmpeg", "-y", "-i", original_path,
+                    "-vcodec", "libx264", "-crf", "28", "-preset", "fast",
+                    "-vf", "scale=1280:-2",
+                    "-an", "-movflags", "+faststart",
+                    tmp_path,
+                ],
+                capture_output=True,
+                timeout=300,
+            )
+
+            if result.returncode == 0 and os.path.exists(tmp_path):
+                compressed_size = os.path.getsize(tmp_path)
+                # Only replace if actually smaller
+                if compressed_size < original_size:
+                    os.replace(tmp_path, original_path)
+        except (subprocess.TimeoutExpired, FileNotFoundError):
+            pass
+        finally:
+            if os.path.exists(tmp_path):
+                os.unlink(tmp_path)
 
 
 # ── Submissions ─────────────────────────────────────────────
