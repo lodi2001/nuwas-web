@@ -151,7 +151,12 @@ export default function NeuralProductsSection({
 
         {/* Product Nodes */}
         {products.map((product, i) => {
-          const logoSrc = product.logo || FALLBACK_LOGOS[product.name] || "/logo.png";
+          let logoSrc = product.logo || FALLBACK_LOGOS[product.name] || "/logo.png";
+          // Rewrite API logo URLs to use /media/ proxy path
+          if (logoSrc && logoSrc.includes("/media/")) {
+            const mediaPath = logoSrc.match(/\/media\/.+/)?.[0];
+            if (mediaPath) logoSrc = mediaPath;
+          }
           return (
             <div
               key={product.name}

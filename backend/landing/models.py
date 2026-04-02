@@ -161,6 +161,30 @@ class Product(models.Model):
     def __str__(self):
         return self.name
 
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        if self.logo and self.logo.name and os.path.exists(self.logo.path):
+            self._compress_logo()
+
+    def _compress_logo(self):
+        """Resize uploaded logo to max 400px wide for product nodes."""
+        from PIL import Image as PILImage
+
+        path = self.logo.path
+        try:
+            img = PILImage.open(path)
+            if img.width <= 400:
+                return
+            ratio = 400 / img.width
+            new_size = (400, int(img.height * ratio))
+            img = img.resize(new_size, PILImage.LANCZOS)
+            if img.mode == "RGBA":
+                img.save(path, "PNG", optimize=True)
+            else:
+                img.save(path, quality=85, optimize=True)
+        except Exception:
+            pass
+
 
 class NavLink(models.Model):
     label_ar = models.CharField(max_length=100)
