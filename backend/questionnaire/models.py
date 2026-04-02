@@ -53,6 +53,8 @@ QUESTIONNAIRE_STATUS_CHOICES = [
 AI_MODEL_CHOICES = [
     ("claude-sonnet-4-20250514", "Claude Sonnet 4"),
     ("claude-opus-4-20250514", "Claude Opus 4"),
+    ("claude-opus-4-6", "Claude Opus 4.6"),
+    ("claude-sonnet-4-6", "Claude Sonnet 4.6"),
 ]
 
 
