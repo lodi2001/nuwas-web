@@ -1,5 +1,6 @@
 import json
 import logging
+import re
 
 import anthropic
 
@@ -35,12 +36,6 @@ You MUST output valid JSON with this exact structure:
                   "label": "نص السؤال",
                   "required": true,
                   "options": ["خيار 1", "خيار 2", "خيار 3"]
-                },
-                {
-                  "type": "radio",
-                  "label": "نص السؤال",
-                  "name": "r-1-1-unique",
-                  "options": ["خيار أ", "خيار ب"]
                 }
               ]
             }
@@ -52,21 +47,20 @@ You MUST output valid JSON with this exact structure:
 }
 
 RULES:
-1. Generate 8-12 features covering ALL aspects of the project
-2. Each feature should have 3-6 requirements
-3. Total requirements should be 35-60
+1. Generate 6-8 features covering the main aspects of the project
+2. Each feature should have 2-4 requirements
+3. Total requirements should be 25-40
 4. Priority distribution: ~40% Must, ~35% Should, ~25% Nice
 5. ALL text MUST be in Arabic (فصحى)
-6. Each requirement MUST have 1-3 sub-questions
-7. Sub-questions should be actionable and help translate to dev specs
+6. Each requirement MUST have 1-2 sub-questions
+7. Sub-questions should be actionable
 8. Use relevant emojis for group labels
 9. Radio group names must be globally unique (format: r-{feat_id}-{req_id}-{short_key})
-10. Consider Saudi market context (ZATCA, PDPL, local payment gateways, Arabic RTL, etc.)
-11. Include technical infrastructure and post-launch support as features
-12. Think about integrations, security, compliance, and scalability
+10. Keep descriptions concise (under 50 words each)
+11. Output ONLY the JSON — no markdown, no code blocks, no explanation
 """
 
-USER_PROMPT_TEMPLATE = """Analyze the following project idea and generate a comprehensive requirements questionnaire:
+USER_PROMPT_TEMPLATE = """Analyze the following project idea and generate a requirements questionnaire:
 
 **Project Type**: {project_type}
 **Description**: {project_description}
@@ -74,7 +68,7 @@ USER_PROMPT_TEMPLATE = """Analyze the following project idea and generate a comp
 **Timeline**: {timeline}
 **Company**: {company_name}
 
-Generate the JSON structure now. Remember: ALL content in Arabic, 8-12 features, 35-60 total requirements."""
+Generate the JSON now. Output ONLY valid JSON, nothing else."""
 
 
 class QuestionnaireGenerator:
@@ -94,19 +88,19 @@ class QuestionnaireGenerator:
         renderer = QuestionnaireHTMLRenderer()
         version = proposal.questionnaires.count() + 1
 
+        total_reqs = 0
+        for f in structured_data.get("features", []):
+            for g in f.get("groups", []):
+                total_reqs += len(g.get("reqs", []))
+
         questionnaire = GeneratedQuestionnaire(
             proposal=proposal,
             version=version,
             ai_model=config.model_name,
-            ai_prompt_used=structured_data["prompt_used"],
-            features=structured_data["features"],
-            total_features=len(structured_data["features"]),
-            total_requirements=sum(
-                len(r)
-                for f in structured_data["features"]
-                for g in f["groups"]
-                for r in g["reqs"]
-            ),
+            ai_prompt_used=structured_data.get("prompt_used", ""),
+            features=structured_data.get("features", []),
+            total_features=len(structured_data.get("features", [])),
+            total_requirements=total_reqs,
             generation_metadata=structured_data.get("metadata", {}),
         )
         questionnaire.save()
@@ -128,9 +122,12 @@ class QuestionnaireGenerator:
 
         client = anthropic.Anthropic(api_key=config.api_key)
 
+        # Use at least 16384 tokens to avoid truncation
+        max_tokens = max(config.max_tokens, 16384)
+
         message = client.messages.create(
             model=config.model_name,
-            max_tokens=config.max_tokens,
+            max_tokens=max_tokens,
             temperature=config.temperature,
             system=SYSTEM_PROMPT,
             messages=[{"role": "user", "content": user_prompt}],
@@ -138,14 +135,20 @@ class QuestionnaireGenerator:
 
         response_text = message.content[0].text
 
-        # Extract JSON from response (handle markdown code blocks)
-        json_text = response_text
-        if "```json" in json_text:
-            json_text = json_text.split("```json")[1].split("```")[0]
-        elif "```" in json_text:
-            json_text = json_text.split("```")[1].split("```")[0]
+        # Check if output was truncated
+        if message.stop_reason == "max_tokens":
+            logger.warning("AI output truncated (max_tokens reached). Attempting JSON repair.")
 
-        data = json.loads(json_text.strip())
+        # Extract JSON from response
+        json_text = self._extract_json(response_text)
+
+        # Try parsing, with repair on failure
+        try:
+            data = json.loads(json_text)
+        except json.JSONDecodeError:
+            logger.warning("JSON parse failed, attempting repair...")
+            repaired = self._repair_json(json_text)
+            data = json.loads(repaired)
 
         data["prompt_used"] = user_prompt
         data["metadata"] = {
@@ -156,3 +159,65 @@ class QuestionnaireGenerator:
         }
 
         return data
+
+    def _extract_json(self, text: str) -> str:
+        """Extract JSON from response text, handling code blocks."""
+        if "```json" in text:
+            text = text.split("```json")[1].split("```")[0]
+        elif "```" in text:
+            parts = text.split("```")
+            if len(parts) >= 2:
+                text = parts[1]
+                if text.startswith("json"):
+                    text = text[4:]
+
+        # Find the JSON object
+        text = text.strip()
+        start = text.find("{")
+        if start > 0:
+            text = text[start:]
+
+        return text
+
+    def _repair_json(self, text: str) -> str:
+        """Attempt to repair truncated JSON by closing open structures."""
+        # Remove trailing incomplete strings
+        # Find the last complete structure
+        text = text.rstrip()
+
+        # Remove trailing partial content after last complete value
+        # Look for last complete array item or object
+        for i in range(len(text) - 1, -1, -1):
+            if text[i] in ('}', ']', '"', 'e', 'l'):  # end of value
+                text = text[:i + 1]
+                break
+
+        # Count open/close brackets
+        open_braces = text.count('{') - text.count('}')
+        open_brackets = text.count('[') - text.count(']')
+
+        # Check if we're inside a string
+        in_string = False
+        escaped = False
+        for ch in text:
+            if escaped:
+                escaped = False
+                continue
+            if ch == '\\':
+                escaped = True
+                continue
+            if ch == '"':
+                in_string = not in_string
+
+        # Close open string
+        if in_string:
+            text += '"'
+
+        # Remove trailing comma
+        text = re.sub(r',\s*$', '', text)
+
+        # Close open brackets and braces
+        text += ']' * open_brackets
+        text += '}' * open_braces
+
+        return text

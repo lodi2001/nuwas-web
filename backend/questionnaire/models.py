@@ -74,7 +74,7 @@ class AIConfig(models.Model):
         default="claude-sonnet-4-20250514",
         help_text="نموذج الذكاء الاصطناعي المستخدم",
     )
-    max_tokens = models.PositiveIntegerField(default=8192)
+    max_tokens = models.PositiveIntegerField(default=16384)
     temperature = models.FloatField(default=0.7)
 
     class Meta:
