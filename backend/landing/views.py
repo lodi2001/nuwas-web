@@ -1,3 +1,5 @@
+from django.views.decorators.csrf import csrf_exempt
+from django.utils.decorators import method_decorator
 from rest_framework.generics import CreateAPIView
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -62,6 +64,7 @@ class LandingPageView(APIView):
         return Response(data)
 
 
+@method_decorator(csrf_exempt, name="dispatch")
 class ContactSubmissionView(CreateAPIView):
     """POST /api/contact/ — submit a contact form."""
 
