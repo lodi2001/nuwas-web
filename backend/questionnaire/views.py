@@ -1,4 +1,5 @@
-from django.http import HttpResponse
+from django.contrib import messages
+from django.http import HttpResponse, HttpResponseRedirect
 from django.utils import timezone
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
@@ -92,29 +93,42 @@ class QuestionnaireSubmitView(APIView):
 
 
 class AdminGenerateView(APIView):
-    """POST /api/v1/admin/proposals/<uuid>/generate/ — trigger AI generation."""
+    """Trigger AI questionnaire generation (GET from admin links, POST from API)."""
 
     permission_classes = [IsAdminUser]
 
+    def get(self, request, pk):
+        return self._generate(request, pk)
+
     def post(self, request, pk):
+        return self._generate(request, pk)
+
+    def _generate(self, request, pk):
         from .tasks import generate_questionnaire_task
 
         try:
             proposal = ProposalRequest.objects.get(pk=pk)
         except ProposalRequest.DoesNotExist:
-            return Response(status=status.HTTP_404_NOT_FOUND)
+            messages.error(request, "الطلب غير موجود")
+            return HttpResponseRedirect("/admin/questionnaire/proposalrequest/")
 
         if proposal.status not in ("new", "reviewed"):
-            return Response(
-                {"error": f"لا يمكن التوليد — الحالة: {proposal.get_status_display()}"},
-                status=status.HTTP_400_BAD_REQUEST,
+            messages.warning(
+                request,
+                f"لا يمكن التوليد — الحالة: {proposal.get_status_display()}",
+            )
+            return HttpResponseRedirect(
+                f"/admin/questionnaire/proposalrequest/{proposal.pk}/change/"
             )
 
         generate_questionnaire_task.delay(str(proposal.id), request.user.id)
         proposal.status = "generating"
         proposal.save()
 
-        return Response({"message": "جاري توليد الاستمارة..."})
+        messages.success(request, f"جاري توليد الاستمارة لـ {proposal.full_name}...")
+        return HttpResponseRedirect(
+            f"/admin/questionnaire/proposalrequest/{proposal.pk}/change/"
+        )
 
 
 class AdminPreviewView(APIView):
@@ -153,40 +167,55 @@ class AdminApproveView(APIView):
 
 
 class AdminSendView(APIView):
-    """POST /api/v1/admin/questionnaires/<uuid>/send/ — send email."""
+    """Send questionnaire email to client."""
 
     permission_classes = [IsAdminUser]
 
+    def get(self, request, pk):
+        return self._send(request, pk)
+
     def post(self, request, pk):
+        return self._send(request, pk)
+
+    def _send(self, request, pk):
         from .tasks import send_questionnaire_email_task
 
         try:
             q = GeneratedQuestionnaire.objects.get(pk=pk)
         except GeneratedQuestionnaire.DoesNotExist:
-            return Response(status=status.HTTP_404_NOT_FOUND)
+            messages.error(request, "الاستمارة غير موجودة")
+            return HttpResponseRedirect("/admin/questionnaire/generatedquestionnaire/")
 
         if q.status not in ("draft", "approved"):
-            return Response(
-                {"error": "الاستمارة غير جاهزة للإرسال"},
-                status=status.HTTP_400_BAD_REQUEST,
-            )
+            messages.warning(request, "الاستمارة غير جاهزة للإرسال")
+        else:
+            send_questionnaire_email_task.delay(str(q.id), request.user.id)
+            messages.success(request, f"جاري إرسال الاستمارة لـ {q.proposal.full_name}...")
 
-        send_questionnaire_email_task.delay(str(q.id), request.user.id)
-        return Response({"message": "جاري إرسال الاستمارة..."})
+        return HttpResponseRedirect(
+            f"/admin/questionnaire/proposalrequest/{q.proposal.pk}/change/"
+        )
 
 
 class AdminRegenerateView(APIView):
-    """POST /api/v1/admin/questionnaires/<uuid>/regenerate/."""
+    """Regenerate questionnaire with AI."""
 
     permission_classes = [IsAdminUser]
 
+    def get(self, request, pk):
+        return self._regenerate(request, pk)
+
     def post(self, request, pk):
+        return self._regenerate(request, pk)
+
+    def _regenerate(self, request, pk):
         from .tasks import generate_questionnaire_task
 
         try:
             q = GeneratedQuestionnaire.objects.get(pk=pk)
         except GeneratedQuestionnaire.DoesNotExist:
-            return Response(status=status.HTTP_404_NOT_FOUND)
+            messages.error(request, "الاستمارة غير موجودة")
+            return HttpResponseRedirect("/admin/questionnaire/generatedquestionnaire/")
 
         q.is_active = False
         q.save()
@@ -196,4 +225,7 @@ class AdminRegenerateView(APIView):
         proposal.save()
 
         generate_questionnaire_task.delay(str(proposal.id), request.user.id)
-        return Response({"message": "جاري إعادة توليد الاستمارة..."})
+        messages.success(request, f"جاري إعادة توليد الاستمارة لـ {proposal.full_name}...")
+        return HttpResponseRedirect(
+            f"/admin/questionnaire/proposalrequest/{proposal.pk}/change/"
+        )
