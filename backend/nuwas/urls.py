@@ -7,6 +7,7 @@ from django.views.static import serve
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/", include("landing.urls")),
+    path("", include("questionnaire.urls")),
     # Serve media files (will be handled by nginx when domain is configured)
     re_path(r"^media/(?P<path>.*)$", serve, {"document_root": settings.MEDIA_ROOT}),
 ]

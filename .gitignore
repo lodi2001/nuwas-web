@@ -18,3 +18,4 @@ frontend/.env.local
 
 # Large media
 documentation/logo/*.mp4
+.playwright-mcp/

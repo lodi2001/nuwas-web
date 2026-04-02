@@ -1,0 +1,2305 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>نواس | استمارة متطلبات — تطبيق توصيل ركاب بين المدن</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;900&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink:       #1A1A2E;
+    --surface:   #F0F4FA;
+    --card:      #FFFFFF;
+    --border:    #C8D6E8;
+    --border-2:  #AABDD6;
+    --teal:      #2AA8DC;
+    --teal-l:    #D6F0FC;
+    --teal-d:    #1A7AAF;
+    --blue:      #1A5FA0;
+    --blue-l:    #D6E8F8;
+    --gold:      #B45309;
+    --gold-l:    #FEF3C7;
+    --green:     #166534;
+    --green-l:   #DCFCE7;
+    --red:       #991B1B;
+    --red-l:     #FEE2E2;
+    --gray:      #5A6A7E;
+    --gray-l:    #EEF2F7;
+    --accent:    #2AA8DC;
+    --checked-bg:#E0F4FC;
+    --shadow-sm: 0 1px 3px rgba(26,95,160,.08);
+    --shadow-md: 0 4px 16px rgba(26,95,160,.12);
+    --shadow-lg: 0 8px 32px rgba(26,95,160,.15);
+    --radius:    10px;
+    --radius-lg: 16px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Cairo', sans-serif;
+    background: var(--surface);
+    color: var(--ink);
+    direction: rtl;
+    min-height: 100vh;
+  }
+
+  .page-header {
+    background: linear-gradient(135deg, #1A4A7A 0%, #1A6EA8 60%, #2AA8DC 100%);
+    color: #fff;
+    padding: 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 12px rgba(0,0,0,.2);
+  }
+  .header-inner {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 14px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+  .header-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .header-logo {
+    width: 42px; height: 42px;
+    background: rgba(255,255,255,.95);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    padding: 4px;
+  }
+  .header-logo img { width: 34px; height: auto; object-fit: contain; }
+  .header-title { font-size: 15px; font-weight: 700; line-height: 1.2; }
+  .header-sub   { font-size: 11px; opacity: .75; }
+  .progress-pill {
+    background: rgba(255,255,255,.15);
+    border-radius: 20px;
+    padding: 6px 14px;
+    font-size: 13px;
+    font-weight: 600;
+    white-space: nowrap;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .progress-bar-wrap {
+    background: rgba(255,255,255,.2);
+    border-radius: 4px;
+    width: 80px; height: 6px; overflow: hidden;
+  }
+  .progress-bar-fill {
+    height: 100%;
+    background: #5EEAD4;
+    border-radius: 4px;
+    transition: width .4s ease;
+    width: 0%;
+  }
+
+  .page-wrapper {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 32px 24px 80px;
+  }
+
+  .hero-card {
+    background: linear-gradient(135deg, #0E3460 0%, #1A5FA0 55%, #2AA8DC 100%);
+    border-radius: var(--radius-lg);
+    padding: 32px 36px;
+    color: #fff;
+    margin-bottom: 28px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+  }
+  .hero-card::before { display: none; }
+  .hero-card::after { display: none; }
+  .hero-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+  .hero-badge {
+    background: rgba(255,255,255,.15);
+    border: 1px solid rgba(255,255,255,.2);
+    border-radius: 6px;
+    padding: 4px 12px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .5px;
+    white-space: nowrap;
+  }
+  .hero-module-num {
+    font-size: 64px;
+    font-weight: 900;
+    opacity: .12;
+    line-height: 1;
+    position: absolute;
+    bottom: 12px;
+    left: 36px;
+    font-family: 'IBM Plex Mono', monospace;
+  }
+  .hero-h1 { font-size: 24px; font-weight: 900; line-height: 1.3; margin-bottom: 8px; }
+  .hero-desc { font-size: 14px; opacity: .85; line-height: 1.7; max-width: 600px; }
+  .hero-stats {
+    display: flex;
+    gap: 24px;
+    border-top: 1px solid rgba(255,255,255,.15);
+    padding-top: 20px;
+    margin-top: 4px;
+    flex-wrap: wrap;
+  }
+  .hero-stat { text-align: center; }
+  .hero-stat-val { font-size: 22px; font-weight: 900; }
+  .hero-stat-lbl { font-size: 11px; opacity: .7; margin-top: 2px; }
+
+  .instruction-card {
+    background: var(--blue-l);
+    border: 1px solid #BFDBFE;
+    border-radius: var(--radius);
+    padding: 16px 20px;
+    margin-bottom: 28px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .instruction-icon { font-size: 22px; flex-shrink: 0; margin-top: 1px; }
+  .instruction-text { font-size: 13.5px; line-height: 1.7; color: #1E3A8A; }
+  .instruction-text strong { font-weight: 700; }
+
+  .feature-section {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    margin-bottom: 20px;
+    box-shadow: var(--shadow-sm);
+    transition: box-shadow .2s;
+  }
+  .feature-section:hover { box-shadow: var(--shadow-md); }
+
+  .feature-header {
+    padding: 18px 24px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    cursor: pointer;
+    user-select: none;
+    border-bottom: 1px solid var(--border);
+    transition: background .15s;
+    position: relative;
+  }
+  .feature-header:hover { background: var(--gray-l); }
+
+  .feat-number {
+    width: 32px; height: 32px;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #1A5FA0, #2AA8DC);
+    color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px;
+    font-weight: 700;
+    flex-shrink: 0;
+    font-family: 'IBM Plex Mono', monospace;
+  }
+  .feat-title { font-size: 15px; font-weight: 700; flex: 1; }
+  .feat-meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+  }
+  .feat-count {
+    font-size: 12px;
+    color: var(--gray);
+    background: var(--gray-l);
+    border-radius: 20px;
+    padding: 2px 10px;
+    font-family: 'IBM Plex Mono', monospace;
+  }
+  .feat-count.has-checks {
+    background: var(--teal-l);
+    color: var(--teal-d);
+  }
+  .feat-chevron {
+    font-size: 12px;
+    color: var(--gray);
+    transition: transform .25s;
+  }
+  .feature-section.open .feat-chevron { transform: rotate(180deg); }
+
+  .feature-body {
+    display: none;
+    padding: 0;
+  }
+  .feature-section.open .feature-body { display: block; }
+
+  .req-group {
+    border-bottom: 1px solid var(--border);
+  }
+  .req-group:last-child { border-bottom: none; }
+
+  .req-group-label {
+    padding: 10px 24px 8px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .8px;
+    color: var(--gray);
+    background: var(--gray-l);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .req-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0;
+    padding: 14px 24px;
+    border-bottom: 1px solid #F0F2F4;
+    transition: background .15s;
+    position: relative;
+  }
+  .req-item:last-child { border-bottom: none; }
+  .req-item:hover { background: #FAFBFC; }
+  .req-item.checked { background: var(--checked-bg); }
+  .req-item.na-item { opacity: .6; }
+
+  .req-checkbox-wrap {
+    flex-shrink: 0;
+    margin-left: 14px;
+    margin-top: 2px;
+  }
+  .req-checkbox {
+    appearance: none;
+    width: 20px; height: 20px;
+    border: 2px solid var(--border-2);
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: all .15s;
+    background: #fff;
+    position: relative;
+  }
+  .req-checkbox:checked {
+    background: var(--teal);
+    border-color: var(--teal);
+  }
+  .req-checkbox:checked::after {
+    content: '✓';
+    color: #fff;
+    font-size: 13px;
+    font-weight: 700;
+    position: absolute;
+  }
+  .req-checkbox:hover:not(:checked) {
+    border-color: var(--teal);
+    background: var(--teal-l);
+  }
+
+  .req-content { flex: 1; }
+
+  .req-label {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--ink);
+    cursor: pointer;
+    line-height: 1.5;
+    display: block;
+    margin-bottom: 5px;
+  }
+  .req-item.checked .req-label { color: var(--teal-d); }
+
+  .req-desc {
+    font-size: 12.5px;
+    color: var(--gray);
+    line-height: 1.6;
+    margin-bottom: 8px;
+  }
+
+  .sub-questions {
+    display: none;
+    background: rgba(15,118,110,.04);
+    border: 1px solid rgba(15,118,110,.15);
+    border-radius: 8px;
+    padding: 14px 16px;
+    margin-top: 10px;
+    gap: 10px;
+    flex-direction: column;
+  }
+  .req-item.checked .sub-questions { display: flex; }
+
+  .sub-q { display: flex; flex-direction: column; gap: 4px; }
+  .sub-q-label {
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--teal-d);
+  }
+  .sub-q-required::after { content: ' *'; color: var(--red); }
+
+  .sub-input, .sub-textarea, .sub-select {
+    font-family: 'Cairo', sans-serif;
+    font-size: 13px;
+    color: var(--ink);
+    background: #fff;
+    border: 1px solid rgba(15,118,110,.25);
+    border-radius: 6px;
+    padding: 7px 10px;
+    direction: rtl;
+    width: 100%;
+    transition: border-color .15s, box-shadow .15s;
+    outline: none;
+  }
+  .sub-input:focus, .sub-textarea:focus, .sub-select:focus {
+    border-color: var(--teal);
+    box-shadow: 0 0 0 3px rgba(15,118,110,.12);
+  }
+  .sub-textarea { resize: vertical; min-height: 64px; }
+
+  .sub-radio-group, .sub-check-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 2px;
+  }
+  .choice-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 5px 12px;
+    border-radius: 20px;
+    border: 1.5px solid var(--border-2);
+    font-family: 'Cairo', sans-serif;
+    font-size: 12.5px;
+    cursor: pointer;
+    background: #fff;
+    color: var(--ink);
+    transition: all .15s;
+    font-weight: 500;
+  }
+  .choice-btn input { display: none; }
+  .choice-btn:hover { border-color: var(--teal); color: var(--teal-d); background: var(--teal-l); }
+  .choice-btn.selected { border-color: var(--teal); background: var(--teal); color: #fff; }
+
+  .priority-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    font-size: 10.5px;
+    font-weight: 700;
+    border-radius: 4px;
+    padding: 2px 7px;
+    margin-left: 8px;
+    vertical-align: middle;
+  }
+  .p-must  { background: #FEE2E2; color: #991B1B; }
+  .p-should{ background: #FEF3C7; color: #92400E; }
+  .p-nice  { background: #DBEAFE; color: #1E3A8A; }
+
+  .section-summary {
+    padding: 12px 24px;
+    background: var(--gray-l);
+    border-top: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 12.5px;
+    color: var(--gray);
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .section-check-bar {
+    flex: 1;
+    min-width: 120px;
+    height: 4px;
+    background: var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .section-check-fill {
+    height: 100%;
+    background: var(--teal);
+    border-radius: 4px;
+    transition: width .3s ease;
+    width: 0%;
+  }
+
+  .actions-bar {
+    position: fixed;
+    bottom: 0; right: 0; left: 0;
+    background: rgba(255,255,255,.96);
+    backdrop-filter: blur(12px);
+    border-top: 1px solid var(--border);
+    padding: 14px 24px;
+    z-index: 50;
+  }
+  .actions-inner {
+    max-width: 960px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .actions-summary { font-size: 13.5px; color: var(--gray); }
+  .actions-summary strong { color: var(--teal-d); font-weight: 700; }
+  .btn {
+    font-family: 'Cairo', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    padding: 10px 22px;
+    border-radius: 8px;
+    cursor: pointer;
+    border: none;
+    transition: all .15s;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .btn-primary {
+    background: linear-gradient(135deg, #1A5FA0, #2AA8DC);
+    color: #fff;
+    box-shadow: 0 2px 8px rgba(42,168,220,.35);
+  }
+  .btn-primary:hover { background: linear-gradient(135deg, #144880, #1A8BC0); transform: translateY(-1px); }
+  .btn-outline {
+    background: transparent;
+    color: var(--teal-d);
+    border: 1.5px solid var(--teal);
+  }
+  .btn-outline:hover { background: var(--teal-l); }
+  .btn-ghost {
+    background: var(--gray-l);
+    color: var(--gray);
+    border: 1.5px solid var(--border);
+  }
+  .btn-ghost:hover { background: var(--border); color: var(--ink); }
+  .btn-group { display: flex; gap: 8px; }
+
+  .na-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 11.5px;
+    color: var(--gray);
+    cursor: pointer;
+    margin-top: 4px;
+  }
+  .na-toggle input { display: none; }
+  .na-dot {
+    width: 14px; height: 14px;
+    border-radius: 50%;
+    border: 1.5px solid var(--border-2);
+    transition: all .15s;
+    display: inline-block;
+  }
+  .na-toggle.active .na-dot { background: var(--gray); border-color: var(--gray); }
+  .na-toggle.active span { color: var(--ink); font-weight: 600; }
+
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.5);
+    z-index: 200;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  .modal-overlay.open { display: flex; }
+  .modal-box {
+    background: #fff;
+    border-radius: var(--radius-lg);
+    max-width: 680px;
+    width: 100%;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 60px rgba(0,0,0,.25);
+    direction: rtl;
+  }
+  .modal-head {
+    padding: 20px 24px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .modal-head h2 { font-size: 18px; font-weight: 800; }
+  .modal-close { background: none; border: none; cursor: pointer; font-size: 18px; color: var(--gray); }
+  .modal-body { padding: 20px 24px; }
+  .modal-section-title { font-size: 13px; font-weight: 700; color: var(--gray); margin: 16px 0 8px; text-transform: uppercase; letter-spacing: .5px; }
+  .modal-section-title:first-child { margin-top: 0; }
+  .summary-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 13.5px;
+    margin-bottom: 4px;
+  }
+  .summary-row:nth-child(odd) { background: var(--gray-l); }
+  .summary-row-name { font-weight: 600; flex: 1; }
+  .summary-row-val { color: var(--gray); font-size: 12.5px; }
+  .summary-big {
+    background: var(--teal-l);
+    border-radius: 10px;
+    padding: 16px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  .summary-big-label { font-size: 14px; font-weight: 700; color: var(--teal-d); }
+  .summary-big-val { font-size: 28px; font-weight: 900; color: var(--teal-d); font-family: 'IBM Plex Mono', monospace; }
+
+  @media (max-width: 600px) {
+    .page-wrapper { padding: 20px 12px 100px; }
+    .hero-card { padding: 22px 18px; }
+    .hero-h1 { font-size: 20px; }
+    .feature-header { padding: 14px 16px; }
+    .req-item { padding: 12px 16px; }
+    .req-group-label { padding: 8px 16px; }
+    .section-summary { padding: 10px 16px; }
+    .hero-stats { gap: 16px; }
+    .hero-module-num { font-size: 44px; }
+  }
+
+  @media print {
+    .actions-bar, .page-header { display: none; }
+    .feature-body { display: block !important; }
+    .feature-section { box-shadow: none; border: 1px solid #ccc; }
+    body { background: #fff; }
+    .page-wrapper { padding: 0; }
+  }
+</style>
+</head>
+<body>
+
+<header class="page-header">
+  <div class="header-inner">
+    <div class="header-brand">
+      <div class="header-logo">
+        <img src="data:image/png;base64,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" style="height:34px;width:auto;object-fit:contain;" alt="Nuwas Logo">
+      </div>
+      <div>
+        <div class="header-title">استمارة استيفاء المتطلبات</div>
+        <div class="header-sub">تطبيق توصيل ركاب بين المدن &nbsp;|&nbsp; نواس الابتكارية لتقنية المعلومات</div>
+      </div>
+    </div>
+    <div class="progress-pill">
+      <div>
+        <div id="progress-label">0 / 0 متطلب</div>
+      </div>
+      <div class="progress-bar-wrap">
+        <div class="progress-bar-fill" id="global-bar"></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="page-wrapper">
+
+  <div class="hero-card">
+    <div class="hero-top">
+      <div>
+        <div class="hero-h1">تطبيق توصيل ركاب بين المدن</div>
+        <div class="hero-desc">
+          استمارة تفصيلية لاستيفاء متطلبات تطبيق الجوال لخدمة توصيل الركاب بين مكة المكرمة وجدة والمدينة المنورة.
+          يرجى تحديد كل متطلب مطلوب والإجابة على الأسئلة التكميلية لترجمتها إلى مواصفات تطوير دقيقة.
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px;">
+        <img src="data:image/png;base64,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" style="height:36px;width:auto;filter:brightness(0) invert(1);opacity:0.9;" alt="Nuwas">
+        <div class="hero-badge">MOBILE APP</div>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="hero-stat-val" id="feat-count-display">12</div><div class="hero-stat-lbl">ميزة رئيسية</div></div>
+      <div class="hero-stat"><div class="hero-stat-val" id="total-reqs-count">0</div><div class="hero-stat-lbl">متطلب فرعي</div></div>
+      <div class="hero-stat"><div class="hero-stat-val" id="checked-reqs-count">0</div><div class="hero-stat-lbl">تم تحديده</div></div>
+    </div>
+    
+  </div>
+
+  <div class="instruction-card">
+    <div class="instruction-icon">💡</div>
+    <div class="instruction-text">
+      <strong>تعليمات التعبئة:</strong>
+      ضع علامة ✓ على كل متطلب تحتاجه في التطبيق. عند تحديد متطلب ستظهر أسئلة تفصيلية يرجى الإجابة عليها بدقة لأنها تُترجم مباشرة إلى مواصفات التطوير.
+      الحقول المعلّمة بـ <span style="color:var(--red)">*</span> إلزامية عند تفعيل البند.
+      يمكنك تحديد <strong>لا ينطبق (N/A)</strong> إذا لم يكن المتطلب ذا صلة.
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- FEATURE 1 — تسجيل المستخدمين والمصادقة               -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <div class="feature-section open" id="feat-1">
+    <div class="feature-header" onclick="toggleFeature('feat-1')">
+      <div class="feat-number">1</div>
+      <div class="feat-title">تسجيل المستخدمين والمصادقة</div>
+      <div class="feat-meta">
+        <span class="feat-count" id="feat-1-count">0/5</span>
+        <span class="feat-chevron">▼</span>
+      </div>
+    </div>
+    <div class="feature-body">
+      <div class="req-group">
+        <div class="req-group-label">👤 تسجيل الركاب</div>
+
+        <div class="req-item" id="req-1-1">
+          <div class="req-checkbox-wrap"><input type="checkbox" class="req-checkbox" id="cb-1-1" onchange="handleCheck(this,'req-1-1','feat-1')"></div>
+          <div class="req-content">
+            <label class="req-label" for="cb-1-1"><span class="priority-tag p-must">Must</span>تسجيل الراكب برقم الجوال + رسالة تحقق OTP</label>
+            <div class="req-desc">تسجيل مبسّط: إدخال رقم الجوال ← استلام OTP ← إدخال الاسم الثنائي فقط</div>
+            <div class="sub-questions">
+              <div class="sub-q">
+                <div class="sub-q-label sub-q-required">ما البيانات المطلوبة عند التسجيل؟</div>
+                <div class="sub-check-group">
+                  <label class="choice-btn"><input type="checkbox" onchange="toggleChoice(this)"> رقم الجوال</label>
+                  <label class="choice-btn"><input type="checkbox" onchange="toggleChoice(this)"> الاسم الثنائي</label>
+                  <label class="choice-btn"><input type="checkbox" onchange="toggleChoice(this)"> البريد الإلكتروني (اختياري)</label>
+                  <label class="choice-btn"><input type="checkbox" onchange="toggleChoice(this)"> المدينة الافتراضية</label>
+                </div>
+              </div>
+              <div class="sub-q">
+                <div class="sub-q-label">هل تريد دعم تسجيل الدخول عبر وسائل أخرى؟</div>
+                <div class="sub-check-group">
+                  <label class="choice-btn"><input type="checkbox" onchange="toggleChoice(this)"> Apple ID</label>
+                  <label class="choice-btn"><input type="checkbox" onchange="toggleChoice(this)"> Google</label>
+                  <label class="choice-btn"><input type="checkbox" onchange="toggleChoice(this)"> رقم الجوال فقط</label>
+                </div>
+              </div>
+            </div>
+            <label class="na-toggle" id="na-1-1" onclick="toggleNA('req-1-1','na-1-1')"><input type="checkbox"><span class="na-dot"></span><span>لا ينطبق (N/A)</span></label>
+          </div>
+        </div>
+
+        <div class="req-item" id="req-1-2">
+          <div class="req-checkbox-wrap"><input type="checkbox" class="req-checkbox" id="cb-1-2" onchange="handleCheck(this,'req-1-2','feat-1')"></div>
+          <div class="req-content">
+            <label class="req-label" for="cb-1-2"><span class="priority-tag p-must">Must</span>تسجيل مقدم الخدمة (السائق/الشركة)</label>
+            <div class="req-desc">تسجيل مقدمي الخدمات مع رفع المستندات المطلوبة من هيئة النقل</div>
+            <div class="sub-questions">
+              <div class="sub-q">
+                <div class="sub-q-label sub-q-required">ما البيانات المطلوبة لتسجيل مقدم الخدمة؟</div>
+                <div class="sub-check-group">
+                  <label class="choice-btn"><input type="checkbox" onchange="toggleChoice(this)"> الاسم الكامل</label>
+                  <label class="choice-btn"><input type="checkbox" onchange="toggleChoice(this)"> رقم الهوية/الإقامة</label>
+                  <label class="choice-btn"><input type="checkbox" onchange="toggleChoice(this)"> رخصة القيادة</label>
+                  <label class="choice-btn"><input type="checkbox" onchange="toggleChoice(this)"> تصريح هيئة النقل</label>
+                  <label class="choice-btn"><input type="checkbox" onchange="toggleChoice(this)"> بيانات السيارة (موديل، نوع، لون)</label>
+                  <label class="choice-btn"><input type="checkbox" onchange="toggleChoice(this)"> صورة السيارة</label>
+                  <label class="choice-btn"><input type="checkbox" onchange="toggleChoice(this)"> رقم اللوحة</label>
+                  <label class="choice-btn"><input type="checkbox" onchange="toggleChoice(this)"> رقم IBAN للتحويل</label>
+                </div>
+              </div>
+              <div class="sub-q">
+                <div class="sub-q-label">هل يحتاج مقدم الخدمة موافقة يدوية من الإدارة قبل التفعيل؟</div>
+                <div class="sub-radio-group">
+                  <label class="choice-btn"><input type="radio" name="r-1-2-approve" onchange="toggleChoice(this)"> نعم — مراجعة يدوية</label>
+                  <label class="choice-btn"><input type="radio" name="r-1-2-approve" onchange="toggleChoice(this)"> تفعيل تلقائي بعد رفع المستندات</label>
+                </div>
+              </div>
+            </div>
+            <label class="na-toggle" id="na-1-2" onclick="toggleNA('req-1-2','na-1-2')"><input type="checkbox"><span class="na-dot"></span><span>لا ينطبق (N/A)</span></label>
+          </div>
+        </div>
+
+        <div class="req-item" id="req-1-3">
+          <div class="req-checkbox-wrap"><input type="checkbox" class="req-checkbox" id="cb-1-3" onchange="handleCheck(this,'req-1-3','feat-1')"></div>
+          <div class="req-content">
+            <label class="req-label" for="cb-1-3"><span class="priority-tag p-must">Must</span>دعم تعدد مقدمي الخدمات على المنصة</label>
+            <div class="req-desc">يمكن لأكثر من سائق أو شركة تقديم خدماتهم عبر التطبيق</div>
+            <div class="sub-questions">
+              <div class="sub-q">
+                <div class="sub-q-label sub-q-required">أنواع مقدمي الخدمة المدعومين</div>
+                <div class="sub-check-group">
+                  <label class="choice-btn"><input type="checkbox" onchange="toggleChoice(this)"> سائق فردي</label>
+                  <label class="choice-btn"><input type="checkbox" onchange="toggleChoice(this)"> شركة نقل (أسطول سيارات)</label>
+                  <label class="choice-btn"><input type="checkbox" onchange="toggleChoice(this)"> كلاهما</label>
+                </div>
+              </div>
+              <div class="sub-q">
+                <div class="sub-q-label">هل يمكن لمقدم الخدمة إضافة أكثر من سيارة؟</div>
+                <div class="sub-radio-group">
+                  <label class="choice-btn"><input type="radio" name="r-1-3-multi" onchange="toggleChoice(this)"> نعم</label>
+                  <label class="choice-btn"><input type="radio" name="r-1-3-multi" onchange="toggleChoice(this)"> لا — سيارة واحدة فقط</label>
+                </div>
+              </div>
+            </div>
+            <label class="na-toggle" id="na-1-3" onclick="toggleNA('req-1-3','na-1-3')"><input type="checkbox"><span class="na-dot"></span><span>لا ينطبق (N/A)</span></label>
+          </div>
+        </div>
+
+        <div class="req-item" id="req-1-4">
+          <div class="req-checkbox-wrap"><input type="checkbox" class="req-checkbox" id="cb-1-4" onchange="handleCheck(this,'req-1-4','feat-1')"></div>
+          <div class="req-content">
+            <label class="req-label" for="cb-1-4"><span class="priority-tag p-should">Should</span>إدارة الملف الشخصي (راكب / مقدم خدمة)</label>
+            <div class="req-desc">تعديل البيانات الشخصية، الصورة، وتفضيلات الحساب</div>
+            <div class="sub-questions">
+              <div class="sub-q">
+                <div class="sub-q-label">هل يمكن للراكب حفظ عناوين مفضلة؟</div>
+                <div class="sub-radio-group">
+                  <label class="choice-btn"><input type="radio" name="r-1-4-fav" onchange="toggleChoice(this)"> نعم</label>
+                  <label class="choice-btn"><input type="radio" name="r-1-4-fav" onchange="toggleChoice(this)"> لا</label>
+                </div>
+              </div>
+            </div>
+            <label class="na-toggle" id="na-1-4" onclick="toggleNA('req-1-4','na-1-4')"><input type="checkbox"><span class="na-dot"></span><span>لا ينطبق (N/A)</span></label>
+          </div>
+        </div>
+
+        <div class="req-item" id="req-1-5">
+          <div class="req-checkbox-wrap"><input type="checkbox" class="req-checkbox" id="cb-1-5" onchange="handleCheck(this,'req-1-5','feat-1')"></div>
+          <div class="req-content">
+            <label class="req-label" for="cb-1-5"><span class="priority-tag p-should">Should</span>إشعارات التطبيق (Push Notifications)</label>
+            <div class="req-desc">إشعارات فورية للراكب والسائق بتحديثات الطلب</div>
+            <div class="sub-questions">
+              <div class="sub-q">
+                <div class="sub-q-label">ما الإشعارات المطلوبة؟</div>
+                <div class="sub-check-group">
+                  <label class="choice-btn"><input type="checkbox" onchange="toggleChoice(this)"> قبول/رفض الطلب</label>
+                  <label class="choice-btn"><input type="checkbox" onchange="toggleChoice(this)"> وصول السائق</label>
+                  <label class="choice-btn"><input type="checkbox" onchange="toggleChoice(this)"> بدء الرحلة</label>
+                  <label class="choice-btn"><input type="checkbox" onchange="toggleChoice(this)"> انتهاء الرحلة</label>
+                  <label class="choice-btn"><input type="checkbox" onchange="toggleChoice(this)"> عروض وتخفيضات</label>
+                </div>
+              </div>
+            </div>
+            <label class="na-toggle" id="na-1-5" onclick="toggleNA('req-1-5','na-1-5')"><input type="checkbox"><span class="na-dot"></span><span>لا ينطبق (N/A)</span></label>
+          </div>
+        </div>
+      </div>
+      <div class="section-summary">
+        <span id="feat-1-summary-text">0 من 5 متطلبات محددة</span>
+        <div class="section-check-bar"><div class="section-check-fill" id="feat-1-bar"></div></div>
+        <span id="feat-1-pct" style="font-family:'IBM Plex Mono',monospace;font-weight:700;color:var(--teal-d)">0%</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- FEATURE 2 — عرض الخدمات والسيارات                    -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <div class="feature-section" id="feat-2">
+    <div class="feature-header" onclick="toggleFeature('feat-2')">
+      <div class="feat-number">2</div>
+      <div class="feat-title">عرض الخدمات والسيارات المتاحة</div>
+      <div class="feat-meta">
+        <span class="feat-count" id="feat-2-count">0/5</span>
+        <span class="feat-chevron">▼</span>
+      </div>
+    </div>
+    <div class="feature-body">
+      <div class="req-group">
+        <div class="req-group-label">🚘 كتالوج السيارات</div>
+
+        <div class="req-item" id="req-2-1">
+          <div class="req-checkbox-wrap"><input type="checkbox" class="req-checkbox" id="cb-2-1" onchange="handleCheck(this,'req-2-1','feat-2')"></div>
+          <div class="req-content">
+            <label class="req-label" for="cb-2-1"><span class="priority-tag p-must">Must</span>عرض بطاقة السيارة مع صورة ومعلومات تفصيلية</label>
+            <div class="req-desc">صورة السيارة (افتراضية أو حقيقية) + الموديل + النوع بالتفصيل + اللون</div>
+            <div class="sub-questions">
+              <div class="sub-q">
+                <div class="sub-q-label sub-q-required">ما المعلومات الظاهرة في بطاقة السيارة قبل الحجز؟</div>
+                <div class="sub-check-group">
+                  <label class="choice-btn"><input type="checkbox" onchange="toggleChoice(this)"> صورة السيارة</label>
+                  <label class="choice-btn"><input type="checkbox" onchange="toggleChoice(this)"> موديل السيارة (السنة)</label>
+                  <label class="choice-btn"><input type="checkbox" onchange="toggleChoice(this)"> نوع السيارة (صالون، SUV، فان)</label>
+                  <label class="choice-btn"><input type="checkbox" onchange="toggleChoice(this)"> لون السيارة</label>
+                  <label class="choice-btn"><input type="checkbox" onchange="toggleChoice(this)"> عدد الركاب المسموح</label>
+                  <label class="choice-btn"><input type="checkbox" onchange="toggleChoice(this)"> تقييم السائق</label>
+                  <label class="choice-btn"><input type="checkbox" onchange="toggleChoice(this)"> السعر</label>
+                </div>
+              </div>
+              <div class="sub-q">
+                <div class="sub-q-label">هل الصور افتراضية (من مكتبة) أم حقيقية يرفعها السائق؟</div>
+                <div class="sub-radio-group">
+                  <label class="choice-btn"><input type="radio" name="r-2-1-photo" onchange="toggleChoice(this)"> افتراضية (حسب الموديل)</label>
+                  <label class="choice-btn"><input type="radio" name="r-2-1-photo" onchange="toggleChoice(this)"> حقيقية يرفعها مقدم الخدمة</label>
+                  <label class="choice-btn"><input type="radio" name="r-2-1-photo" onchange="toggleChoice(this)"> كلاهما (افتراضية + إمكانية رفع حقيقية)</label>
+                </div>
+              </div>
+            </div>
+            <label class="na-toggle" id="na-2-1" onclick="toggleNA('req-2-1','na-2-1')"><input type="checkbox"><span class="na-dot"></span><span>لا ينطبق (N/A)</span></label>
+          </div>
+        </div>
+
+        <div class="req-item" id="req-2-2">
+          <div class="req-checkbox-wrap"><input type="checkbox" class="req-checkbox" id="cb-2-2" onchange="handleCheck(this,'req-2-2','feat-2')"></div>
+          <div class="req-content">
+            <label class="req-label" for="cb-2-2"><span class="priority-tag p-must">Must</span>إضافة الخدمة والتسعير من مقدم الخدمة مباشرة</label>
+            <div class="req-desc">مقدم الخدمة يحدد السعر ويضيف خدمته بنفسه عبر لوحة تحكمه</div>
+            <div class="sub-questions">
+              <div class="sub-q">
+                <div class="sub-q-label sub-q-required">كيف يتم تحديد السعر؟</div>
+                <div class="sub-radio-group">
+                  <label class="choice-btn"><input type="radio" name="r-2-2-price" onchange="toggleChoice(this)"> مقدم الخدمة يحدد السعر حراً</label>
+                  <label class="choice-btn"><input type="radio" name="r-2-2-price" onchange="toggleChoice(this)"> نطاق سعري يحدده مالك المنصة</label>
+                  <label class="choice-btn"><input type="radio" name="r-2-2-price" onchange="toggleChoice(this)"> تسعير ثابت حسب المسار</label>
+                </div>
+              </div>
+              <div class="sub-q">
+                <div class="sub-q-label">هل السعر يختلف حسب وقت الرحلة (ذروة / عادي)؟</div>
+                <div class="sub-radio-group">
+                  <label class="choice-btn"><input type="radio" name="r-2-2-surge" onchange="toggleChoice(this)"> نعم — تسعير ديناميكي</label>
+                  <label class="choice-btn"><input type="radio" name="r-2-2-surge" onchange="toggleChoice(this)"> لا — سعر ثابت</label>
+                </div>
+              </div>
+            </div>
+            <label class="na-toggle" id="na-2-2" onclick="toggleNA('req-2-2','na-2-2')"><input type="checkbox"><span class="na-dot"></span><span>لا ينطبق (N/A)</span></label>
+          </div>
+        </div>
+
+        <div class="req-item" id="req-2-3">
+          <div class="req-checkbox-wrap"><input type="checkbox" class="req-checkbox" id="cb-2-3" onchange="handleCheck(this,'req-2-3','feat-2')"></div>
+          <div class="req-content">
+            <label class="req-label" for="cb-2-3"><span class="priority-tag p-must">Must</span>تحديد المسارات المتاحة بين المدن</label>
+            <div class="req-desc">مكة المكرمة ↔ جدة، مكة المكرمة ↔ المدينة المنورة، جدة ↔ المدينة المنورة</div>
+            <div class="sub-questions">
+              <div class="sub-q">
+                <div class="sub-q-label sub-q-required">ما المسارات المطلوب دعمها في الإطلاق الأول؟</div>
+                <div class="sub-check-group">
+                  <label class="choice-btn"><input type="checkbox" onchange="toggleChoice(this)"> مكة ↔ جدة</label>
+                  <label class="choice-btn"><input type="checkbox" onchange="toggleChoice(this)"> مكة ↔ المدينة</label>
+                  <label class="choice-btn"><input type="checkbox" onchange="toggleChoice(this)"> جدة ↔ المدينة</label>
+                </div>
+              </div>
+              <div class="sub-q">
+                <div class="sub-q-label">هل تخطط لإضافة مدن أخرى لاحقاً؟</div>
+                <div class="sub-radio-group">
+                  <label class="choice-btn"><input type="radio" name="r-2-3-expand" onchange="toggleChoice(this)"> نعم — النظام يجب أن يكون مرناً</label>
+                  <label class="choice-btn"><input type="radio" name="r-2-3-expand" onchange="toggleChoice(this)"> لا — هذه المدن فقط</label>
+                </div>
+              </div>
+            </div>
+            <label class="na-toggle" id="na-2-3" onclick="toggleNA('req-2-3','na-2-3')"><input type="checkbox"><span class="na-dot"></span><span>لا ينطبق (N/A)</span></label>
+          </div>
+        </div>
+
+        <div class="req-item" id="req-2-4">
+          <div class="req-checkbox-wrap"><input type="checkbox" class="req-checkbox" id="cb-2-4" onchange="handleCheck(this,'req-2-4','feat-2')"></div>
+          <div class="req-content">
+            <label class="req-label" for="cb-2-4"><span class="priority-tag p-must">Must</span>تحديد نقطة الانطلاق ونقطة الوصول عبر الموقع (GPS)</label>
+            <div class="req-desc">خريطة تفاعلية لتحديد موقع الانطلاق والوصول بدقة</div>
+            <div class="sub-questions">
+              <div class="sub-q">
+                <div class="sub-q-label sub-q-required">كيف يحدد الراكب نقطة الانطلاق؟</div>
+                <div class="sub-check-group">
+                  <label class="choice-btn"><input type="checkbox" onchange="toggleChoice(this)"> تحديد تلقائي من GPS الجوال</label>
+                  <label class="choice-btn"><input type="checkbox" onchange="toggleChoice(this)"> اختيار يدوي على الخريطة</label>
+                  <label class="choice-btn"><input type="checkbox" onchange="toggleChoice(this)"> بحث بالعنوان</label>
+                  <label class="choice-btn"><input type="checkbox" onchange="toggleChoice(this)"> اختيار من عناوين محفوظة</label>
+                </div>
+              </div>
+              <div class="sub-q">
+                <div class="sub-q-label">ما مزود الخرائط المفضل؟</div>
+                <div class="sub-radio-group">
+                  <label class="choice-btn"><input type="radio" name="r-2-4-map" onchange="toggleChoice(this)"> Google Maps</label>
+                  <label class="choice-btn"><input type="radio" name="r-2-4-map" onchange="toggleChoice(this)"> Apple Maps</label>
+                  <label class="choice-btn"><input type="radio" name="r-2-4-map" onchange="toggleChoice(this)"> Mapbox</label>
+                </div>
+              </div>
+            </div>
+            <label class="na-toggle" id="na-2-4" onclick="toggleNA('req-2-4','na-2-4')"><input type="checkbox"><span class="na-dot"></span><span>لا ينطبق (N/A)</span></label>
+          </div>
+        </div>
+
+        <div class="req-item" id="req-2-5">
+          <div class="req-checkbox-wrap"><input type="checkbox" class="req-checkbox" id="cb-2-5" onchange="handleCheck(this,'req-2-5','feat-2')"></div>
+          <div class="req-content">
+            <label class="req-label" for="cb-2-5"><span class="priority-tag p-should">Should</span>تصنيف وفلترة الخدمات المعروضة</label>
+            <div class="req-desc">تصفية حسب نوع السيارة، السعر، التقييم، وقت الانطلاق</div>
+            <div class="sub-questions">
+              <div class="sub-q">
+                <div class="sub-q-label">ما معايير الفلترة المطلوبة؟</div>
+                <div class="sub-check-group">
+                  <label class="choice-btn"><input type="checkbox" onchange="toggleChoice(this)"> نوع السيارة</label>
+                  <label class="choice-btn"><input type="checkbox" onchange="toggleChoice(this)"> نطاق السعر</label>
+                  <label class="choice-btn"><input type="checkbox" onchange="toggleChoice(this)"> التقييم</label>
+                  <label class="choice-btn"><input type="checkbox" onchange="toggleChoice(this)"> الأقرب موعداً</label>
+                </div>
+              </div>
+            </div>
+            <label class="na-toggle" id="na-2-5" onclick="toggleNA('req-2-5','na-2-5')"><input type="checkbox"><span class="na-dot"></span><span>لا ينطبق (N/A)</span></label>
+          </div>
+        </div>
+      </div>
+      <div class="section-summary">
+        <span id="feat-2-summary-text">0 من 5 متطلبات محددة</span>
+        <div class="section-check-bar"><div class="section-check-fill" id="feat-2-bar"></div></div>
+        <span id="feat-2-pct" style="font-family:'IBM Plex Mono',monospace;font-weight:700;color:var(--teal-d)">0%</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- FEATURE 3 — الحجز وإدارة الطلبات                     -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <div class="feature-section" id="feat-3">
+    <div class="feature-header" onclick="toggleFeature('feat-3')">
+      <div class="feat-number">3</div>
+      <div class="feat-title">الحجز وإدارة الطلبات</div>
+      <div class="feat-meta">
+        <span class="feat-count" id="feat-3-count">0/6</span>
+        <span class="feat-chevron">▼</span>
+      </div>
+    </div>
+    <div class="feature-body">
+      <div class="req-group">
+        <div class="req-group-label">📝 دورة حياة الطلب</div>
+
+        <div class="req-item" id="req-3-1">
+          <div class="req-checkbox-wrap"><input type="checkbox" class="req-checkbox" id="cb-3-1" onchange="handleCheck(this,'req-3-1','feat-3')"></div>
+          <div class="req-content">
+            <label class="req-label" for="cb-3-1"><span class="priority-tag p-must">Must</span>إنشاء طلب رحلة وإرساله لمقدمي الخدمات</label>
+            <div class="req-desc">الراكب يختار المسار ← يحدد نقطة الانطلاق والوصول ← يختار سيارة ← يرسل الطلب</div>
+            <div class="sub-questions">
+              <div class="sub-q">
+                <div class="sub-q-label sub-q-required">آلية الطلب والقبول</div>
+                <div class="sub-radio-group">
+                  <label class="choice-btn"><input type="radio" name="r-3-1-flow" onchange="toggleChoice(this)"> الراكب يختار سائقاً محدداً ← السائق يوافق/يرفض</label>
+                  <label class="choice-btn"><input type="radio" name="r-3-1-flow" onchange="toggleChoice(this)"> الطلب يُرسل لجميع السائقين المتاحين ← أول سائق يقبل</label>
+                  <label class="choice-btn"><input type="radio" name="r-3-1-flow" onchange="toggleChoice(this)"> كلاهما حسب اختيار الراكب</label>
+                </div>
+              </div>
+              <div class="sub-q">
+                <div class="sub-q-label">هل يمكن حجز رحلة مسبقة (حجز مستقبلي)؟</div>
+                <div class="sub-radio-group">
+                  <label class="choice-btn"><input type="radio" name="r-3-1-future" onchange="toggleChoice(this)"> نعم — حجز مسبق بتاريخ ووقت</label>
+                  <label class="choice-btn"><input type="radio" name="r-3-1-future" onchange="toggleChoice(this)"> لا — رحلات فورية فقط</label>
+                  <label class="choice-btn"><input type="radio" name="r-3-1-future" onchange="toggleChoice(this)"> كلاهما</label>
+                </div>
+              </div>
+            </div>
+            <label class="na-toggle" id="na-3-1" onclick="toggleNA('req-3-1','na-3-1')"><input type="checkbox"><span class="na-dot"></span><span>لا ينطبق (N/A)</span></label>
+          </div>
+        </div>
+
+        <div class="req-item" id="req-3-2">
+          <div class="req-checkbox-wrap"><input type="checkbox" class="req-checkbox" id="cb-3-2" onchange="handleCheck(this,'req-3-2','feat-3')"></div>
+          <div class="req-content">
+            <label class="req-label" for="cb-3-2"><span class="priority-tag p-must">Must</span>الموافقة والقبول من مقدم الخدمة بشكل مباشر</label>
+            <div class="req-desc">يرى مقدم الخدمة الطلب ← يوافق أو يرفض في الوقت الحقيقي</div>
+            <div class="sub-questions">
+              <div class="sub-q">
+                <div class="sub-q-label sub-q-required">ما المدة المسموحة للسائق للرد على الطلب؟</div>
+                <div class="sub-radio-group">
+                  <label class="choice-btn"><input type="radio" name="r-3-2-timeout" onchange="toggleChoice(this)"> دقيقة واحدة</label>
+                  <label class="choice-btn"><input type="radio" name="r-3-2-timeout" onchange="toggleChoice(this)"> 3 دقائق</label>
+                  <label class="choice-btn"><input type="radio" name="r-3-2-timeout" onchange="toggleChoice(this)"> 5 دقائق</label>
+                  <label class="choice-btn"><input type="radio" name="r-3-2-timeout" onchange="toggleChoice(this)"> قابل للتخصيص</label>
+                </div>
+              </div>
+            </div>
+            <label class="na-toggle" id="na-3-2" onclick="toggleNA('req-3-2','na-3-2')"><input type="checkbox"><span class="na-dot"></span><span>لا ينطبق (N/A)</span></label>
+          </div>
+        </div>
+
+        <div class="req-item" id="req-3-3">
+          <div class="req-checkbox-wrap"><input type="checkbox" class="req-checkbox" id="cb-3-3" onchange="handleCheck(this,'req-3-3','feat-3')"></div>
+          <div class="req-content">
+            <label class="req-label" for="cb-3-3"><span class="priority-tag p-must">Must</span>عرض بيانات السائق واللوحة بعد قبول الطلب</label>
+            <div class="req-desc">عند موافقة السائق يظهر للراكب: اسم السائق + رقم اللوحة + بيانات السيارة</div>
+            <div class="sub-questions">
+              <div class="sub-q">
+                <div class="sub-q-label">ما المعلومات التي تظهر للراكب بعد القبول؟</div>
+                <div class="sub-check-group">
+                  <label class="choice-btn"><input type="checkbox" onchange="toggleChoice(this)"> اسم السائق</label>
+                  <label class="choice-btn"><input type="checkbox" onchange="toggleChoice(this)"> رقم اللوحة</label>
+                  <label class="choice-btn"><input type="checkbox" onchange="toggleChoice(this)"> صورة السائق</label>
+                  <label class="choice-btn"><input type="checkbox" onchange="toggleChoice(this)"> رقم جوال السائق</label>
+                  <label class="choice-btn"><input type="checkbox" onchange="toggleChoice(this)"> نوع وموديل ولون السيارة</label>
+                  <label class="choice-btn"><input type="checkbox" onchange="toggleChoice(this)"> الوقت المتوقع للوصول</label>
+                </div>
+              </div>
+            </div>
+            <label class="na-toggle" id="na-3-3" onclick="toggleNA('req-3-3','na-3-3')"><input type="checkbox"><span class="na-dot"></span><span>لا ينطبق (N/A)</span></label>
+          </div>
+        </div>
+
+        <div class="req-item" id="req-3-4">
+          <div class="req-checkbox-wrap"><input type="checkbox" class="req-checkbox" id="cb-3-4" onchange="handleCheck(this,'req-3-4','feat-3')"></div>
+          <div class="req-content">
+            <label class="req-label" for="cb-3-4"><span class="priority-tag p-must">Must</span>حالات الطلب المتتابعة</label>
+            <div class="req-desc">جديد ← مقبول ← في الطريق للعميل ← بدأت الرحلة ← مكتملة ← ملغاة</div>
+            <div class="sub-questions">
+              <div class="sub-q">
+                <div class="sub-q-label sub-q-required">ما حالات الطلب المطلوبة؟</div>
+                <div class="sub-check-group">
+                  <label class="choice-btn"><input type="checkbox" onchange="toggleChoice(this)"> جديد / بانتظار القبول</label>
+                  <label class="choice-btn"><input type="checkbox" onchange="toggleChoice(this)"> مقبول</label>
+                  <label class="choice-btn"><input type="checkbox" onchange="toggleChoice(this)"> السائق في الطريق</label>
+                  <label class="choice-btn"><input type="checkbox" onchange="toggleChoice(this)"> السائق وصل</label>
+                  <label class="choice-btn"><input type="checkbox" onchange="toggleChoice(this)"> الرحلة بدأت</label>
+                  <label class="choice-btn"><input type="checkbox" onchange="toggleChoice(this)"> مكتملة</label>
+                  <label class="choice-btn"><input type="checkbox" onchange="toggleChoice(this)"> ملغاة</label>
+                </div>
+              </div>
+            </div>
+            <label class="na-toggle" id="na-3-4" onclick="toggleNA('req-3-4','na-3-4')"><input type="checkbox"><span class="na-dot"></span><span>لا ينطبق (N/A)</span></label>
+          </div>
+        </div>
+
+        <div class="req-item" id="req-3-5">
+          <div class="req-checkbox-wrap"><input type="checkbox" class="req-checkbox" id="cb-3-5" onchange="handleCheck(this,'req-3-5','feat-3')"></div>
+          <div class="req-content">
+            <label class="req-label" for="cb-3-5"><span class="priority-tag p-should">Should</span>إلغاء الطلب مع سياسة إلغاء واضحة</label>
+            <div class="req-desc">إمكانية الإلغاء من الراكب أو السائق مع تطبيق رسوم إلغاء إن وجدت</div>
+            <div class="sub-questions">
+              <div class="sub-q">
+                <div class="sub-q-label">هل تُفرض رسوم إلغاء؟</div>
+                <div class="sub-radio-group">
+                  <label class="choice-btn"><input type="radio" name="r-3-5-cancel" onchange="toggleChoice(this)"> نعم — بعد فترة معينة</label>
+                  <label class="choice-btn"><input type="radio" name="r-3-5-cancel" onchange="toggleChoice(this)"> لا — إلغاء مجاني دائماً</label>
+                </div>
+              </div>
+            </div>
+            <label class="na-toggle" id="na-3-5" onclick="toggleNA('req-3-5','na-3-5')"><input type="checkbox"><span class="na-dot"></span><span>لا ينطبق (N/A)</span></label>
+          </div>
+        </div>
+
+        <div class="req-item" id="req-3-6">
+          <div class="req-checkbox-wrap"><input type="checkbox" class="req-checkbox" id="cb-3-6" onchange="handleCheck(this,'req-3-6','feat-3')"></div>
+          <div class="req-content">
+            <label class="req-label" for="cb-3-6"><span class="priority-tag p-should">Should</span>سجل الرحلات السابقة للراكب ومقدم الخدمة</label>
+            <div class="req-desc">عرض تاريخ جميع الرحلات مع تفاصيلها وحالتها</div>
+            <div class="sub-questions">
+              <div class="sub-q">
+                <div class="sub-q-label">ما التفاصيل المعروضة في سجل الرحلات؟</div>
+                <div class="sub-check-group">
+                  <label class="choice-btn"><input type="checkbox" onchange="toggleChoice(this)"> التاريخ والوقت</label>
+                  <label class="choice-btn"><input type="checkbox" onchange="toggleChoice(this)"> المسار</label>
+                  <label class="choice-btn"><input type="checkbox" onchange="toggleChoice(this)"> المبلغ</label>
+                  <label class="choice-btn"><input type="checkbox" onchange="toggleChoice(this)"> الحالة</label>
+                  <label class="choice-btn"><input type="checkbox" onchange="toggleChoice(this)"> الفاتورة</label>
+                </div>
+              </div>
+            </div>
+            <label class="na-toggle" id="na-3-6" onclick="toggleNA('req-3-6','na-3-6')"><input type="checkbox"><span class="na-dot"></span><span>لا ينطبق (N/A)</span></label>
+          </div>
+        </div>
+      </div>
+      <div class="section-summary">
+        <span id="feat-3-summary-text">0 من 6 متطلبات محددة</span>
+        <div class="section-check-bar"><div class="section-check-fill" id="feat-3-bar"></div></div>
+        <span id="feat-3-pct" style="font-family:'IBM Plex Mono',monospace;font-weight:700;color:var(--teal-d)">0%</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- FEATURE 4 — تتبع السائق والرحلة (GPS)               -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <div class="feature-section" id="feat-4">
+    <div class="feature-header" onclick="toggleFeature('feat-4')">
+      <div class="feat-number">4</div>
+      <div class="feat-title">تتبع السائق والرحلة عبر GPS (متطلب هيئة النقل)</div>
+      <div class="feat-meta">
+        <span class="feat-count" id="feat-4-count">0/4</span>
+        <span class="feat-chevron">▼</span>
+      </div>
+    </div>
+    <div class="feature-body">
+      <div class="req-group">
+        <div class="req-group-label">📍 التتبع المباشر</div>
+
+        <div class="req-item" id="req-4-1">
+          <div class="req-checkbox-wrap"><input type="checkbox" class="req-checkbox" id="cb-4-1" onchange="handleCheck(this,'req-4-1','feat-4')"></div>
+          <div class="req-content">
+            <label class="req-label" for="cb-4-1"><span class="priority-tag p-must">Must</span>تتبع مباشر للسائق من مقره حتى مقر العميل حتى التوصيل</label>
+            <div class="req-desc">خريطة حية تعرض موقع السائق في كل مراحل الرحلة (متطلب هيئة النقل)</div>
+            <div class="sub-questions">
+              <div class="sub-q">
+                <div class="sub-q-label sub-q-required">مراحل التتبع المطلوبة</div>
+                <div class="sub-check-group">
+                  <label class="choice-btn"><input type="checkbox" onchange="toggleChoice(this)"> السائق في الطريق للراكب</label>
+                  <label class="choice-btn"><input type="checkbox" onchange="toggleChoice(this)"> أثناء الرحلة بين المدينتين</label>
+                  <label class="choice-btn"><input type="checkbox" onchange="toggleChoice(this)"> الوقت المتوقع للوصول (ETA)</label>
+                  <label class="choice-btn"><input type="checkbox" onchange="toggleChoice(this)"> مشاركة الموقع مع طرف ثالث (للأمان)</label>
+                </div>
+              </div>
+              <div class="sub-q">
+                <div class="sub-q-label">هل تريد تخزين مسار الرحلة كاملاً للمراجعة لاحقاً؟</div>
+                <div class="sub-radio-group">
+                  <label class="choice-btn"><input type="radio" name="r-4-1-store" onchange="toggleChoice(this)"> نعم — لأغراض الأمان والنزاعات</label>
+                  <label class="choice-btn"><input type="radio" name="r-4-1-store" onchange="toggleChoice(this)"> لا</label>
+                </div>
+              </div>
+            </div>
+            <label class="na-toggle" id="na-4-1" onclick="toggleNA('req-4-1','na-4-1')"><input type="checkbox"><span class="na-dot"></span><span>لا ينطبق (N/A)</span></label>
+          </div>
+        </div>
+
+        <div class="req-item" id="req-4-2">
+          <div class="req-checkbox-wrap"><input type="checkbox" class="req-checkbox" id="cb-4-2" onchange="handleCheck(this,'req-4-2','feat-4')"></div>
+          <div class="req-content">
+            <label class="req-label" for="cb-4-2"><span class="priority-tag p-must">Must</span>عرض المسار على الخريطة مع وقت الوصول المتوقع</label>
+            <div class="req-desc">خط المسار + ETA + المسافة المتبقية يظهر للراكب في الوقت الحقيقي</div>
+            <div class="sub-questions">
+              <div class="sub-q">
+                <div class="sub-q-label">ما دقة التحديث المطلوبة؟</div>
+                <div class="sub-radio-group">
+                  <label class="choice-btn"><input type="radio" name="r-4-2-freq" onchange="toggleChoice(this)"> كل 5 ثوانٍ</label>
+                  <label class="choice-btn"><input type="radio" name="r-4-2-freq" onchange="toggleChoice(this)"> كل 10 ثوانٍ</label>
+                  <label class="choice-btn"><input type="radio" name="r-4-2-freq" onchange="toggleChoice(this)"> كل 30 ثانية</label>
+                </div>
+              </div>
+            </div>
+            <label class="na-toggle" id="na-4-2" onclick="toggleNA('req-4-2','na-4-2')"><input type="checkbox"><span class="na-dot"></span><span>لا ينطبق (N/A)</span></label>
+          </div>
+        </div>
+
+        <div class="req-item" id="req-4-3">
+          <div class="req-checkbox-wrap"><input type="checkbox" class="req-checkbox" id="cb-4-3" onchange="handleCheck(this,'req-4-3','feat-4')"></div>
+          <div class="req-content">
+            <label class="req-label" for="cb-4-3"><span class="priority-tag p-should">Should</span>زر اتصال / محادثة بين الراكب والسائق</label>
+            <div class="req-desc">تواصل مباشر أثناء الرحلة عبر مكالمة أو رسائل داخل التطبيق</div>
+            <div class="sub-questions">
+              <div class="sub-q">
+                <div class="sub-q-label">وسائل التواصل المطلوبة</div>
+                <div class="sub-check-group">
+                  <label class="choice-btn"><input type="checkbox" onchange="toggleChoice(this)"> اتصال هاتفي مباشر</label>
+                  <label class="choice-btn"><input type="checkbox" onchange="toggleChoice(this)"> اتصال مقنّع (رقم وسيط)</label>
+                  <label class="choice-btn"><input type="checkbox" onchange="toggleChoice(this)"> محادثة نصية داخل التطبيق</label>
+                </div>
+              </div>
+            </div>
+            <label class="na-toggle" id="na-4-3" onclick="toggleNA('req-4-3','na-4-3')"><input type="checkbox"><span class="na-dot"></span><span>لا ينطبق (N/A)</span></label>
+          </div>
+        </div>
+
+        <div class="req-item" id="req-4-4">
+          <div class="req-checkbox-wrap"><input type="checkbox" class="req-checkbox" id="cb-4-4" onchange="handleCheck(this,'req-4-4','feat-4')"></div>
+          <div class="req-content">
+            <label class="req-label" for="cb-4-4"><span class="priority-tag p-nice">Nice</span>زر SOS / طوارئ أثناء الرحلة</label>
+            <div class="req-desc">زر طوارئ يرسل الموقع لجهة اتصال محددة أو للإدارة</div>
+            <div class="sub-questions">
+              <div class="sub-q">
+                <div class="sub-q-label">ما يحدث عند الضغط على زر الطوارئ؟</div>
+                <div class="sub-check-group">
+                  <label class="choice-btn"><input type="checkbox" onchange="toggleChoice(this)"> إرسال الموقع للإدارة</label>
+                  <label class="choice-btn"><input type="checkbox" onchange="toggleChoice(this)"> إرسال SMS لجهة اتصال طوارئ</label>
+                  <label class="choice-btn"><input type="checkbox" onchange="toggleChoice(this)"> اتصال تلقائي بالجهات الأمنية</label>
+                </div>
+              </div>
+            </div>
+            <label class="na-toggle" id="na-4-4" onclick="toggleNA('req-4-4','na-4-4')"><input type="checkbox"><span class="na-dot"></span><span>لا ينطبق (N/A)</span></label>
+          </div>
+        </div>
+      </div>
+      <div class="section-summary">
+        <span id="feat-4-summary-text">0 من 4 متطلبات محددة</span>
+        <div class="section-check-bar"><div class="section-check-fill" id="feat-4-bar"></div></div>
+        <span id="feat-4-pct" style="font-family:'IBM Plex Mono',monospace;font-weight:700;color:var(--teal-d)">0%</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- FEATURE 5 — المدفوعات وبوابة الدفع                   -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <div class="feature-section" id="feat-5">
+    <div class="feature-header" onclick="toggleFeature('feat-5')">
+      <div class="feat-number">5</div>
+      <div class="feat-title">المدفوعات وبوابة الدفع</div>
+      <div class="feat-meta">
+        <span class="feat-count" id="feat-5-count">0/5</span>
+        <span class="feat-chevron">▼</span>
+      </div>
+    </div>
+    <div class="feature-body">
+      <div class="req-group">
+        <div class="req-group-label">💳 طرق الدفع</div>
+
+        <div class="req-item" id="req-5-1">
+          <div class="req-checkbox-wrap"><input type="checkbox" class="req-checkbox" id="cb-5-1" onchange="handleCheck(this,'req-5-1','feat-5')"></div>
+          <div class="req-content">
+            <label class="req-label" for="cb-5-1"><span class="priority-tag p-must">Must</span>دعم بوابات الدفع المتعددة</label>
+            <div class="req-desc">دفع مقدم، دفع عند التوصيل، تابي، تمارا</div>
+            <div class="sub-questions">
+              <div class="sub-q">
+                <div class="sub-q-label sub-q-required">ما طرق الدفع المطلوبة؟</div>
+                <div class="sub-check-group">
+                  <label class="choice-btn"><input type="checkbox" onchange="toggleChoice(this)"> دفع مقدم (بطاقة ائتمان/مدى)</label>
+                  <label class="choice-btn"><input type="checkbox" onchange="toggleChoice(this)"> Apple Pay</label>
+                  <label class="choice-btn"><input type="checkbox" onchange="toggleChoice(this)"> الدفع عند التوصيل (كاش)</label>
+                  <label class="choice-btn"><input type="checkbox" onchange="toggleChoice(this)"> تابي (Tabby)</label>
+                  <label class="choice-btn"><input type="checkbox" onchange="toggleChoice(this)"> تمارا (Tamara)</label>
+                  <label class="choice-btn"><input type="checkbox" onchange="toggleChoice(this)"> STC Pay</label>
+                </div>
+              </div>
+              <div class="sub-q">
+                <div class="sub-q-label">ما بوابة الدفع الأساسية المفضلة؟</div>
+                <div class="sub-radio-group">
+                  <label class="choice-btn"><input type="radio" name="r-5-1-gw" onchange="toggleChoice(this)"> TAP Payments</label>
+                  <label class="choice-btn"><input type="radio" name="r-5-1-gw" onchange="toggleChoice(this)"> Moyasar</label>
+                  <label class="choice-btn"><input type="radio" name="r-5-1-gw" onchange="toggleChoice(this)"> HyperPay</label>
+                  <label class="choice-btn"><input type="radio" name="r-5-1-gw" onchange="toggleChoice(this)"> لم يتم الاختيار بعد</label>
+                </div>
+              </div>
+            </div>
+            <label class="na-toggle" id="na-5-1" onclick="toggleNA('req-5-1','na-5-1')"><input type="checkbox"><span class="na-dot"></span><span>لا ينطبق (N/A)</span></label>
+          </div>
+        </div>
+
+        <div class="req-item" id="req-5-2">
+          <div class="req-checkbox-wrap"><input type="checkbox" class="req-checkbox" id="cb-5-2" onchange="handleCheck(this,'req-5-2','feat-5')"></div>
+          <div class="req-content">
+            <label class="req-label" for="cb-5-2"><span class="priority-tag p-must">Must</span>حساب عمولة المنصة بشكل تلقائي</label>
+            <div class="req-desc">خصم نسبة العمولة تلقائياً من كل رحلة وتحويل المبلغ الصافي لمقدم الخدمة</div>
+            <div class="sub-questions">
+              <div class="sub-q">
+                <div class="sub-q-label sub-q-required">كيف تُحسب العمولة؟</div>
+                <div class="sub-radio-group">
+                  <label class="choice-btn"><input type="radio" name="r-5-2-comm" onchange="toggleChoice(this)"> نسبة ثابتة من كل رحلة</label>
+                  <label class="choice-btn"><input type="radio" name="r-5-2-comm" onchange="toggleChoice(this)"> نسبة + مبلغ ثابت</label>
+                  <label class="choice-btn"><input type="radio" name="r-5-2-comm" onchange="toggleChoice(this)"> قابلة للتخصيص لكل مقدم خدمة</label>
+                </div>
+              </div>
+              <div class="sub-q">
+                <div class="sub-q-label">ما نسبة العمولة المبدئية المتوقعة؟</div>
+                <input type="text" class="sub-input" placeholder="مثال: 15%، 20%...">
+              </div>
+            </div>
+            <label class="na-toggle" id="na-5-2" onclick="toggleNA('req-5-2','na-5-2')"><input type="checkbox"><span class="na-dot"></span><span>لا ينطبق (N/A)</span></label>
+          </div>
+        </div>
+
+        <div class="req-item" id="req-5-3">
+          <div class="req-checkbox-wrap"><input type="checkbox" class="req-checkbox" id="cb-5-3" onchange="handleCheck(this,'req-5-3','feat-5')"></div>
+          <div class="req-content">
+            <label class="req-label" for="cb-5-3"><span class="priority-tag p-must">Must</span>إصدار فاتورة ضريبية مبسطة</label>
+            <div class="req-desc">فاتورة ضريبية مبسطة لكل رحلة تتوافق مع متطلبات ZATCA</div>
+            <div class="sub-questions">
+              <div class="sub-q">
+                <div class="sub-q-label sub-q-required">ما بيانات الفاتورة المطلوبة؟</div>
+                <div class="sub-check-group">
+                  <label class="choice-btn"><input type="checkbox" onchange="toggleChoice(this)"> اسم المنصة والرقم الضريبي</label>
+                  <label class="choice-btn"><input type="checkbox" onchange="toggleChoice(this)"> تفاصيل الرحلة</label>
+                  <label class="choice-btn"><input type="checkbox" onchange="toggleChoice(this)"> المبلغ شامل الضريبة</label>
+                  <label class="choice-btn"><input type="checkbox" onchange="toggleChoice(this)"> QR Code (ZATCA)</label>
+                  <label class="choice-btn"><input type="checkbox" onchange="toggleChoice(this)"> رقم تسلسلي للفاتورة</label>
+                </div>
+              </div>
+              <div class="sub-q">
+                <div class="sub-q-label">هل تريد إصدار فاتورة عمولة منفصلة لمقدم الخدمة؟</div>
+                <div class="sub-radio-group">
+                  <label class="choice-btn"><input type="radio" name="r-5-3-inv" onchange="toggleChoice(this)"> نعم — فاتورة عمولة مستقلة</label>
+                  <label class="choice-btn"><input type="radio" name="r-5-3-inv" onchange="toggleChoice(this)"> لا — مدمجة في التقارير</label>
+                </div>
+              </div>
+            </div>
+            <label class="na-toggle" id="na-5-3" onclick="toggleNA('req-5-3','na-5-3')"><input type="checkbox"><span class="na-dot"></span><span>لا ينطبق (N/A)</span></label>
+          </div>
+        </div>
+
+        <div class="req-item" id="req-5-4">
+          <div class="req-checkbox-wrap"><input type="checkbox" class="req-checkbox" id="cb-5-4" onchange="handleCheck(this,'req-5-4','feat-5')"></div>
+          <div class="req-content">
+            <label class="req-label" for="cb-5-4"><span class="priority-tag p-should">Should</span>محفظة إلكترونية داخل التطبيق</label>
+            <div class="req-desc">رصيد مسبق يمكن الشحن والسحب منه — لمقدمي الخدمة والركاب</div>
+            <div class="sub-questions">
+              <div class="sub-q">
+                <div class="sub-q-label">لمن تكون المحفظة؟</div>
+                <div class="sub-check-group">
+                  <label class="choice-btn"><input type="checkbox" onchange="toggleChoice(this)"> مقدم الخدمة (لاستلام الأرباح)</label>
+                  <label class="choice-btn"><input type="checkbox" onchange="toggleChoice(this)"> الراكب (لشحن رصيد)</label>
+                </div>
+              </div>
+            </div>
+            <label class="na-toggle" id="na-5-4" onclick="toggleNA('req-5-4','na-5-4')"><input type="checkbox"><span class="na-dot"></span><span>لا ينطبق (N/A)</span></label>
+          </div>
+        </div>
+
+        <div class="req-item" id="req-5-5">
+          <div class="req-checkbox-wrap"><input type="checkbox" class="req-checkbox" id="cb-5-5" onchange="handleCheck(this,'req-5-5','feat-5')"></div>
+          <div class="req-content">
+            <label class="req-label" for="cb-5-5"><span class="priority-tag p-nice">Nice</span>نظام كوبونات وعروض ترويجية</label>
+            <div class="req-desc">كود خصم أو عروض تخفيض لتشجيع الاستخدام</div>
+            <div class="sub-questions">
+              <div class="sub-q">
+                <div class="sub-q-label">أنواع العروض المطلوبة</div>
+                <div class="sub-check-group">
+                  <label class="choice-btn"><input type="checkbox" onchange="toggleChoice(this)"> كود خصم بنسبة</label>
+                  <label class="choice-btn"><input type="checkbox" onchange="toggleChoice(this)"> كود خصم بمبلغ ثابت</label>
+                  <label class="choice-btn"><input type="checkbox" onchange="toggleChoice(this)"> رحلة مجانية</label>
+                  <label class="choice-btn"><input type="checkbox" onchange="toggleChoice(this)"> برنامج إحالة (Referral)</label>
+                </div>
+              </div>
+            </div>
+            <label class="na-toggle" id="na-5-5" onclick="toggleNA('req-5-5','na-5-5')"><input type="checkbox"><span class="na-dot"></span><span>لا ينطبق (N/A)</span></label>
+          </div>
+        </div>
+      </div>
+      <div class="section-summary">
+        <span id="feat-5-summary-text">0 من 5 متطلبات محددة</span>
+        <div class="section-check-bar"><div class="section-check-fill" id="feat-5-bar"></div></div>
+        <span id="feat-5-pct" style="font-family:'IBM Plex Mono',monospace;font-weight:700;color:var(--teal-d)">0%</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- FEATURE 6 — الغرامات والعقوبات                       -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <div class="feature-section" id="feat-6">
+    <div class="feature-header" onclick="toggleFeature('feat-6')">
+      <div class="feat-number">6</div>
+      <div class="feat-title">الغرامات والعقوبات</div>
+      <div class="feat-meta">
+        <span class="feat-count" id="feat-6-count">0/4</span>
+        <span class="feat-chevron">▼</span>
+      </div>
+    </div>
+    <div class="feature-body">
+      <div class="req-group">
+        <div class="req-group-label">⚠️ سياسات الغرامات</div>
+
+        <div class="req-item" id="req-6-1">
+          <div class="req-checkbox-wrap"><input type="checkbox" class="req-checkbox" id="cb-6-1" onchange="handleCheck(this,'req-6-1','feat-6')"></div>
+          <div class="req-content">
+            <label class="req-label" for="cb-6-1"><span class="priority-tag p-must">Must</span>غرامة تأخير السائق</label>
+            <div class="req-desc">فرض غرامة تلقائية عند تأخر السائق عن الموعد المتفق عليه</div>
+            <div class="sub-questions">
+              <div class="sub-q">
+                <div class="sub-q-label sub-q-required">كيف تُحسب غرامة التأخير؟</div>
+                <div class="sub-radio-group">
+                  <label class="choice-btn"><input type="radio" name="r-6-1-late" onchange="toggleChoice(this)"> مبلغ ثابت لكل تأخير</label>
+                  <label class="choice-btn"><input type="radio" name="r-6-1-late" onchange="toggleChoice(this)"> مبلغ لكل دقيقة تأخير</label>
+                  <label class="choice-btn"><input type="radio" name="r-6-1-late" onchange="toggleChoice(this)"> نسبة من قيمة الرحلة</label>
+                </div>
+              </div>
+              <div class="sub-q">
+                <div class="sub-q-label">بعد كم دقيقة يبدأ احتساب التأخير؟</div>
+                <input type="text" class="sub-input" placeholder="مثال: 10 دقائق، 15 دقيقة...">
+              </div>
+            </div>
+            <label class="na-toggle" id="na-6-1" onclick="toggleNA('req-6-1','na-6-1')"><input type="checkbox"><span class="na-dot"></span><span>لا ينطبق (N/A)</span></label>
+          </div>
+        </div>
+
+        <div class="req-item" id="req-6-2">
+          <div class="req-checkbox-wrap"><input type="checkbox" class="req-checkbox" id="cb-6-2" onchange="handleCheck(this,'req-6-2','feat-6')"></div>
+          <div class="req-content">
+            <label class="req-label" for="cb-6-2"><span class="priority-tag p-must">Must</span>غرامة تغيير نوع السيارة</label>
+            <div class="req-desc">إذا وصل السائق بسيارة مختلفة عن المعلن عنها</div>
+            <div class="sub-questions">
+              <div class="sub-q">
+                <div class="sub-q-label">ما الإجراء عند تغيير السيارة؟</div>
+                <div class="sub-radio-group">
+                  <label class="choice-btn"><input type="radio" name="r-6-2-change" onchange="toggleChoice(this)"> غرامة مالية + تنبيه</label>
+                  <label class="choice-btn"><input type="radio" name="r-6-2-change" onchange="toggleChoice(this)"> إلغاء مجاني للراكب</label>
+                  <label class="choice-btn"><input type="radio" name="r-6-2-change" onchange="toggleChoice(this)"> تعليق الحساب مؤقتاً</label>
+                  <label class="choice-btn"><input type="radio" name="r-6-2-change" onchange="toggleChoice(this)"> الكل (غرامة + إلغاء + تعليق)</label>
+                </div>
+              </div>
+            </div>
+            <label class="na-toggle" id="na-6-2" onclick="toggleNA('req-6-2','na-6-2')"><input type="checkbox"><span class="na-dot"></span><span>لا ينطبق (N/A)</span></label>
+          </div>
+        </div>
+
+        <div class="req-item" id="req-6-3">
+          <div class="req-checkbox-wrap"><input type="checkbox" class="req-checkbox" id="cb-6-3" onchange="handleCheck(this,'req-6-3','feat-6')"></div>
+          <div class="req-content">
+            <label class="req-label" for="cb-6-3"><span class="priority-tag p-should">Should</span>نظام نقاط مخالفات تراكمية لمقدمي الخدمة</label>
+            <div class="req-desc">نقاط جزاء تتراكم — عند حد معين يتم إيقاف الحساب</div>
+            <div class="sub-questions">
+              <div class="sub-q">
+                <div class="sub-q-label">ما عدد النقاط قبل الإيقاف؟</div>
+                <input type="text" class="sub-input" placeholder="مثال: 10 نقاط...">
+              </div>
+            </div>
+            <label class="na-toggle" id="na-6-3" onclick="toggleNA('req-6-3','na-6-3')"><input type="checkbox"><span class="na-dot"></span><span>لا ينطبق (N/A)</span></label>
+          </div>
+        </div>
+
+        <div class="req-item" id="req-6-4">
+          <div class="req-checkbox-wrap"><input type="checkbox" class="req-checkbox" id="cb-6-4" onchange="handleCheck(this,'req-6-4','feat-6')"></div>
+          <div class="req-content">
+            <label class="req-label" for="cb-6-4"><span class="priority-tag p-nice">Nice</span>نظام نزاعات وشكاوى</label>
+            <div class="req-desc">آلية لرفع شكوى من الراكب أو السائق ومتابعتها</div>
+            <div class="sub-questions">
+              <div class="sub-q">
+                <div class="sub-q-label">كيف تُعالج الشكوى؟</div>
+                <div class="sub-radio-group">
+                  <label class="choice-btn"><input type="radio" name="r-6-4-dispute" onchange="toggleChoice(this)"> مراجعة يدوية من فريق الدعم</label>
+                  <label class="choice-btn"><input type="radio" name="r-6-4-dispute" onchange="toggleChoice(this)"> استرداد تلقائي حسب السياسة</label>
+                </div>
+              </div>
+            </div>
+            <label class="na-toggle" id="na-6-4" onclick="toggleNA('req-6-4','na-6-4')"><input type="checkbox"><span class="na-dot"></span><span>لا ينطبق (N/A)</span></label>
+          </div>
+        </div>
+      </div>
+      <div class="section-summary">
+        <span id="feat-6-summary-text">0 من 4 متطلبات محددة</span>
+        <div class="section-check-bar"><div class="section-check-fill" id="feat-6-bar"></div></div>
+        <span id="feat-6-pct" style="font-family:'IBM Plex Mono',monospace;font-weight:700;color:var(--teal-d)">0%</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- FEATURE 7 — التقييمات والمراجعات                     -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <div class="feature-section" id="feat-7">
+    <div class="feature-header" onclick="toggleFeature('feat-7')">
+      <div class="feat-number">7</div>
+      <div class="feat-title">التقييمات والمراجعات</div>
+      <div class="feat-meta">
+        <span class="feat-count" id="feat-7-count">0/4</span>
+        <span class="feat-chevron">▼</span>
+      </div>
+    </div>
+    <div class="feature-body">
+      <div class="req-group">
+        <div class="req-group-label">⭐ نظام التقييم</div>
+
+        <div class="req-item" id="req-7-1">
+          <div class="req-checkbox-wrap"><input type="checkbox" class="req-checkbox" id="cb-7-1" onchange="handleCheck(this,'req-7-1','feat-7')"></div>
+          <div class="req-content">
+            <label class="req-label" for="cb-7-1"><span class="priority-tag p-must">Must</span>تقييم السائق والسيارة بعد كل رحلة</label>
+            <div class="req-desc">الراكب يُقيّم تجربته مع السائق والسيارة بعد انتهاء الرحلة</div>
+            <div class="sub-questions">
+              <div class="sub-q">
+                <div class="sub-q-label sub-q-required">ما عناصر التقييم المطلوبة؟</div>
+                <div class="sub-check-group">
+                  <label class="choice-btn"><input type="checkbox" onchange="toggleChoice(this)"> تقييم عام (نجوم 1-5)</label>
+                  <label class="choice-btn"><input type="checkbox" onchange="toggleChoice(this)"> نظافة السيارة</label>
+                  <label class="choice-btn"><input type="checkbox" onchange="toggleChoice(this)"> أسلوب القيادة</label>
+                  <label class="choice-btn"><input type="checkbox" onchange="toggleChoice(this)"> الالتزام بالموعد</label>
+                  <label class="choice-btn"><input type="checkbox" onchange="toggleChoice(this)"> أخلاق السائق</label>
+                  <label class="choice-btn"><input type="checkbox" onchange="toggleChoice(this)"> تعليق نصي اختياري</label>
+                </div>
+              </div>
+            </div>
+            <label class="na-toggle" id="na-7-1" onclick="toggleNA('req-7-1','na-7-1')"><input type="checkbox"><span class="na-dot"></span><span>لا ينطبق (N/A)</span></label>
+          </div>
+        </div>
+
+        <div class="req-item" id="req-7-2">
+          <div class="req-checkbox-wrap"><input type="checkbox" class="req-checkbox" id="cb-7-2" onchange="handleCheck(this,'req-7-2','feat-7')"></div>
+          <div class="req-content">
+            <label class="req-label" for="cb-7-2"><span class="priority-tag p-should">Should</span>تقييم الراكب من قِبل السائق</label>
+            <div class="req-desc">السائق يُقيّم الراكب أيضاً (الالتزام بالموعد، التعامل)</div>
+            <div class="sub-questions">
+              <div class="sub-q">
+                <div class="sub-q-label">هل يؤثر تقييم الراكب على قدرته في الحجز؟</div>
+                <div class="sub-radio-group">
+                  <label class="choice-btn"><input type="radio" name="r-7-2-effect" onchange="toggleChoice(this)"> نعم — قد يُرفض الحجز</label>
+                  <label class="choice-btn"><input type="radio" name="r-7-2-effect" onchange="toggleChoice(this)"> لا — للعرض فقط</label>
+                </div>
+              </div>
+            </div>
+            <label class="na-toggle" id="na-7-2" onclick="toggleNA('req-7-2','na-7-2')"><input type="checkbox"><span class="na-dot"></span><span>لا ينطبق (N/A)</span></label>
+          </div>
+        </div>
+
+        <div class="req-item" id="req-7-3">
+          <div class="req-checkbox-wrap"><input type="checkbox" class="req-checkbox" id="cb-7-3" onchange="handleCheck(this,'req-7-3','feat-7')"></div>
+          <div class="req-content">
+            <label class="req-label" for="cb-7-3"><span class="priority-tag p-should">Should</span>عرض متوسط التقييم في بطاقة السائق</label>
+            <div class="req-desc">التقييم المتراكم يظهر للركاب عند اختيار السيارة</div>
+            <div class="sub-questions">
+              <div class="sub-q">
+                <div class="sub-q-label">هل يظهر عدد الرحلات المكتملة أيضاً؟</div>
+                <div class="sub-radio-group">
+                  <label class="choice-btn"><input type="radio" name="r-7-3-trips" onchange="toggleChoice(this)"> نعم</label>
+                  <label class="choice-btn"><input type="radio" name="r-7-3-trips" onchange="toggleChoice(this)"> لا</label>
+                </div>
+              </div>
+            </div>
+            <label class="na-toggle" id="na-7-3" onclick="toggleNA('req-7-3','na-7-3')"><input type="checkbox"><span class="na-dot"></span><span>لا ينطبق (N/A)</span></label>
+          </div>
+        </div>
+
+        <div class="req-item" id="req-7-4">
+          <div class="req-checkbox-wrap"><input type="checkbox" class="req-checkbox" id="cb-7-4" onchange="handleCheck(this,'req-7-4','feat-7')"></div>
+          <div class="req-content">
+            <label class="req-label" for="cb-7-4"><span class="priority-tag p-nice">Nice</span>إيقاف تلقائي عند انخفاض التقييم</label>
+            <div class="req-desc">إذا انخفض تقييم السائق عن حد معين يتم تعليق حسابه</div>
+            <div class="sub-questions">
+              <div class="sub-q">
+                <div class="sub-q-label">ما الحد الأدنى للتقييم قبل الإيقاف؟</div>
+                <div class="sub-radio-group">
+                  <label class="choice-btn"><input type="radio" name="r-7-4-min" onchange="toggleChoice(this)"> 3.0 نجوم</label>
+                  <label class="choice-btn"><input type="radio" name="r-7-4-min" onchange="toggleChoice(this)"> 3.5 نجوم</label>
+                  <label class="choice-btn"><input type="radio" name="r-7-4-min" onchange="toggleChoice(this)"> 4.0 نجوم</label>
+                </div>
+              </div>
+            </div>
+            <label class="na-toggle" id="na-7-4" onclick="toggleNA('req-7-4','na-7-4')"><input type="checkbox"><span class="na-dot"></span><span>لا ينطبق (N/A)</span></label>
+          </div>
+        </div>
+      </div>
+      <div class="section-summary">
+        <span id="feat-7-summary-text">0 من 4 متطلبات محددة</span>
+        <div class="section-check-bar"><div class="section-check-fill" id="feat-7-bar"></div></div>
+        <span id="feat-7-pct" style="font-family:'IBM Plex Mono',monospace;font-weight:700;color:var(--teal-d)">0%</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- FEATURE 8 — واجهة التطبيق والتصميم                   -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <div class="feature-section" id="feat-8">
+    <div class="feature-header" onclick="toggleFeature('feat-8')">
+      <div class="feat-number">8</div>
+      <div class="feat-title">واجهة التطبيق والتصميم الخارجي</div>
+      <div class="feat-meta">
+        <span class="feat-count" id="feat-8-count">0/5</span>
+        <span class="feat-chevron">▼</span>
+      </div>
+    </div>
+    <div class="feature-body">
+      <div class="req-group">
+        <div class="req-group-label">🎨 الشكل والمظهر</div>
+
+        <div class="req-item" id="req-8-1">
+          <div class="req-checkbox-wrap"><input type="checkbox" class="req-checkbox" id="cb-8-1" onchange="handleCheck(this,'req-8-1','feat-8')"></div>
+          <div class="req-content">
+            <label class="req-label" for="cb-8-1"><span class="priority-tag p-must">Must</span>تطبيق جوال أصلي (iOS + Android)</label>
+            <div class="req-desc">تطبيق أصلي على كلا المنصتين — وليس موقع ويب</div>
+            <div class="sub-questions">
+              <div class="sub-q">
+                <div class="sub-q-label sub-q-required">ما تقنية التطوير المفضلة؟</div>
+                <div class="sub-radio-group">
+                  <label class="choice-btn"><input type="radio" name="r-8-1-tech" onchange="toggleChoice(this)"> Flutter (تطبيق واحد للمنصتين)</label>
+                  <label class="choice-btn"><input type="radio" name="r-8-1-tech" onchange="toggleChoice(this)"> React Native</label>
+                  <label class="choice-btn"><input type="radio" name="r-8-1-tech" onchange="toggleChoice(this)"> تطبيقات أصلية منفصلة (Swift + Kotlin)</label>
+                  <label class="choice-btn"><input type="radio" name="r-8-1-tech" onchange="toggleChoice(this)"> لم يتم الاختيار — نترك للمطور</label>
+                </div>
+              </div>
+            </div>
+            <label class="na-toggle" id="na-8-1" onclick="toggleNA('req-8-1','na-8-1')"><input type="checkbox"><span class="na-dot"></span><span>لا ينطبق (N/A)</span></label>
+          </div>
+        </div>
+
+        <div class="req-item" id="req-8-2">
+          <div class="req-checkbox-wrap"><input type="checkbox" class="req-checkbox" id="cb-8-2" onchange="handleCheck(this,'req-8-2','feat-8')"></div>
+          <div class="req-content">
+            <label class="req-label" for="cb-8-2"><span class="priority-tag p-must">Must</span>دعم اللغة العربية بشكل كامل (RTL)</label>
+            <div class="req-desc">واجهة عربية من اليمين لليسار مع إمكانية التبديل للإنجليزية</div>
+            <div class="sub-questions">
+              <div class="sub-q">
+                <div class="sub-q-label">هل يُطلب دعم اللغة الإنجليزية أيضاً؟</div>
+                <div class="sub-radio-group">
+                  <label class="choice-btn"><input type="radio" name="r-8-2-lang" onchange="toggleChoice(this)"> نعم — عربي + إنجليزي</label>
+                  <label class="choice-btn"><input type="radio" name="r-8-2-lang" onchange="toggleChoice(this)"> عربي فقط حالياً</label>
+                </div>
+              </div>
+            </div>
+            <label class="na-toggle" id="na-8-2" onclick="toggleNA('req-8-2','na-8-2')"><input type="checkbox"><span class="na-dot"></span><span>لا ينطبق (N/A)</span></label>
+          </div>
+        </div>
+
+        <div class="req-item" id="req-8-3">
+          <div class="req-checkbox-wrap"><input type="checkbox" class="req-checkbox" id="cb-8-3" onchange="handleCheck(this,'req-8-3','feat-8')"></div>
+          <div class="req-content">
+            <label class="req-label" for="cb-8-3"><span class="priority-tag p-must">Must</span>هوية بصرية وألوان التطبيق</label>
+            <div class="req-desc">تصميم يعكس هوية العلامة التجارية مع ألوان متناسقة</div>
+            <div class="sub-questions">
+              <div class="sub-q">
+                <div class="sub-q-label">هل لديك هوية بصرية جاهزة (شعار + ألوان)؟</div>
+                <div class="sub-radio-group">
+                  <label class="choice-btn"><input type="radio" name="r-8-3-brand" onchange="toggleChoice(this)"> نعم — سنرسلها</label>
+                  <label class="choice-btn"><input type="radio" name="r-8-3-brand" onchange="toggleChoice(this)"> لا — نحتاج تصميمها</label>
+                </div>
+              </div>
+              <div class="sub-q">
+                <div class="sub-q-label">هل تريد الوضع الداكن (Dark Mode)؟</div>
+                <div class="sub-radio-group">
+                  <label class="choice-btn"><input type="radio" name="r-8-3-dark" onchange="toggleChoice(this)"> نعم</label>
+                  <label class="choice-btn"><input type="radio" name="r-8-3-dark" onchange="toggleChoice(this)"> لا — فاتح فقط</label>
+                </div>
+              </div>
+            </div>
+            <label class="na-toggle" id="na-8-3" onclick="toggleNA('req-8-3','na-8-3')"><input type="checkbox"><span class="na-dot"></span><span>لا ينطبق (N/A)</span></label>
+          </div>
+        </div>
+
+        <div class="req-item" id="req-8-4">
+          <div class="req-checkbox-wrap"><input type="checkbox" class="req-checkbox" id="cb-8-4" onchange="handleCheck(this,'req-8-4','feat-8')"></div>
+          <div class="req-content">
+            <label class="req-label" for="cb-8-4"><span class="priority-tag p-should">Should</span>شاشات تعريفية عند أول استخدام (Onboarding)</label>
+            <div class="req-desc">شاشات توضيحية تشرح طريقة استخدام التطبيق للمستخدم الجديد</div>
+            <div class="sub-questions">
+              <div class="sub-q">
+                <div class="sub-q-label">كم عدد شاشات التعريف المتوقعة؟</div>
+                <div class="sub-radio-group">
+                  <label class="choice-btn"><input type="radio" name="r-8-4-screens" onchange="toggleChoice(this)"> 3 شاشات</label>
+                  <label class="choice-btn"><input type="radio" name="r-8-4-screens" onchange="toggleChoice(this)"> 4-5 شاشات</label>
+                </div>
+              </div>
+            </div>
+            <label class="na-toggle" id="na-8-4" onclick="toggleNA('req-8-4','na-8-4')"><input type="checkbox"><span class="na-dot"></span><span>لا ينطبق (N/A)</span></label>
+          </div>
+        </div>
+
+        <div class="req-item" id="req-8-5">
+          <div class="req-checkbox-wrap"><input type="checkbox" class="req-checkbox" id="cb-8-5" onchange="handleCheck(this,'req-8-5','feat-8')"></div>
+          <div class="req-content">
+            <label class="req-label" for="cb-8-5"><span class="priority-tag p-nice">Nice</span>صفحات ثابتة (من نحن، الشروط، سياسة الخصوصية)</label>
+            <div class="sub-questions">
+              <div class="sub-q">
+                <div class="sub-q-label">ما الصفحات المطلوبة؟</div>
+                <div class="sub-check-group">
+                  <label class="choice-btn"><input type="checkbox" onchange="toggleChoice(this)"> من نحن</label>
+                  <label class="choice-btn"><input type="checkbox" onchange="toggleChoice(this)"> الشروط والأحكام</label>
+                  <label class="choice-btn"><input type="checkbox" onchange="toggleChoice(this)"> سياسة الخصوصية</label>
+                  <label class="choice-btn"><input type="checkbox" onchange="toggleChoice(this)"> الأسئلة الشائعة</label>
+                  <label class="choice-btn"><input type="checkbox" onchange="toggleChoice(this)"> تواصل معنا</label>
+                </div>
+              </div>
+            </div>
+            <label class="na-toggle" id="na-8-5" onclick="toggleNA('req-8-5','na-8-5')"><input type="checkbox"><span class="na-dot"></span><span>لا ينطبق (N/A)</span></label>
+          </div>
+        </div>
+      </div>
+      <div class="section-summary">
+        <span id="feat-8-summary-text">0 من 5 متطلبات محددة</span>
+        <div class="section-check-bar"><div class="section-check-fill" id="feat-8-bar"></div></div>
+        <span id="feat-8-pct" style="font-family:'IBM Plex Mono',monospace;font-weight:700;color:var(--teal-d)">0%</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- FEATURE 9 — لوحة تحكم الإدارة                        -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <div class="feature-section" id="feat-9">
+    <div class="feature-header" onclick="toggleFeature('feat-9')">
+      <div class="feat-number">9</div>
+      <div class="feat-title">لوحة تحكم الإدارة (Admin Panel)</div>
+      <div class="feat-meta">
+        <span class="feat-count" id="feat-9-count">0/5</span>
+        <span class="feat-chevron">▼</span>
+      </div>
+    </div>
+    <div class="feature-body">
+      <div class="req-group">
+        <div class="req-group-label">🛠️ إدارة المنصة</div>
+
+        <div class="req-item" id="req-9-1">
+          <div class="req-checkbox-wrap"><input type="checkbox" class="req-checkbox" id="cb-9-1" onchange="handleCheck(this,'req-9-1','feat-9')"></div>
+          <div class="req-content">
+            <label class="req-label" for="cb-9-1"><span class="priority-tag p-must">Must</span>إدارة مقدمي الخدمات (قبول / رفض / تعليق)</label>
+            <div class="req-desc">مراجعة طلبات التسجيل، تفعيل/تعليق الحسابات، مراجعة الوثائق</div>
+            <div class="sub-questions">
+              <div class="sub-q">
+                <div class="sub-q-label">ما صلاحيات الإدارة المطلوبة؟</div>
+                <div class="sub-check-group">
+                  <label class="choice-btn"><input type="checkbox" onchange="toggleChoice(this)"> قبول/رفض تسجيل مقدم خدمة</label>
+                  <label class="choice-btn"><input type="checkbox" onchange="toggleChoice(this)"> تعليق/تفعيل حساب</label>
+                  <label class="choice-btn"><input type="checkbox" onchange="toggleChoice(this)"> تعديل نسبة العمولة</label>
+                  <label class="choice-btn"><input type="checkbox" onchange="toggleChoice(this)"> إدارة المسارات والأسعار</label>
+                  <label class="choice-btn"><input type="checkbox" onchange="toggleChoice(this)"> إدارة الغرامات</label>
+                </div>
+              </div>
+            </div>
+            <label class="na-toggle" id="na-9-1" onclick="toggleNA('req-9-1','na-9-1')"><input type="checkbox"><span class="na-dot"></span><span>لا ينطبق (N/A)</span></label>
+          </div>
+        </div>
+
+        <div class="req-item" id="req-9-2">
+          <div class="req-checkbox-wrap"><input type="checkbox" class="req-checkbox" id="cb-9-2" onchange="handleCheck(this,'req-9-2','feat-9')"></div>
+          <div class="req-content">
+            <label class="req-label" for="cb-9-2"><span class="priority-tag p-must">Must</span>متابعة الطلبات والرحلات في الوقت الحقيقي</label>
+            <div class="req-desc">لوحة حية تعرض الرحلات الجارية وحالتها والإحصائيات</div>
+            <div class="sub-questions">
+              <div class="sub-q">
+                <div class="sub-q-label">ما الإحصائيات المطلوبة في اللوحة؟</div>
+                <div class="sub-check-group">
+                  <label class="choice-btn"><input type="checkbox" onchange="toggleChoice(this)"> عدد الرحلات اليومية</label>
+                  <label class="choice-btn"><input type="checkbox" onchange="toggleChoice(this)"> الإيرادات والعمولات</label>
+                  <label class="choice-btn"><input type="checkbox" onchange="toggleChoice(this)"> الرحلات الملغاة</label>
+                  <label class="choice-btn"><input type="checkbox" onchange="toggleChoice(this)"> متوسط التقييم</label>
+                  <label class="choice-btn"><input type="checkbox" onchange="toggleChoice(this)"> عدد المستخدمين النشطين</label>
+                </div>
+              </div>
+            </div>
+            <label class="na-toggle" id="na-9-2" onclick="toggleNA('req-9-2','na-9-2')"><input type="checkbox"><span class="na-dot"></span><span>لا ينطبق (N/A)</span></label>
+          </div>
+        </div>
+
+        <div class="req-item" id="req-9-3">
+          <div class="req-checkbox-wrap"><input type="checkbox" class="req-checkbox" id="cb-9-3" onchange="handleCheck(this,'req-9-3','feat-9')"></div>
+          <div class="req-content">
+            <label class="req-label" for="cb-9-3"><span class="priority-tag p-must">Must</span>تقارير مالية وتصدير البيانات</label>
+            <div class="req-desc">تقارير الإيرادات، العمولات، المدفوعات لمقدمي الخدمة — تصدير Excel/PDF</div>
+            <div class="sub-questions">
+              <div class="sub-q">
+                <div class="sub-q-label">ما التقارير المطلوبة؟</div>
+                <div class="sub-check-group">
+                  <label class="choice-btn"><input type="checkbox" onchange="toggleChoice(this)"> تقرير الإيرادات اليومي/الأسبوعي/الشهري</label>
+                  <label class="choice-btn"><input type="checkbox" onchange="toggleChoice(this)"> تقرير العمولات لكل مقدم خدمة</label>
+                  <label class="choice-btn"><input type="checkbox" onchange="toggleChoice(this)"> تقرير الضرائب (VAT)</label>
+                  <label class="choice-btn"><input type="checkbox" onchange="toggleChoice(this)"> تقرير الرحلات حسب المسار</label>
+                </div>
+              </div>
+            </div>
+            <label class="na-toggle" id="na-9-3" onclick="toggleNA('req-9-3','na-9-3')"><input type="checkbox"><span class="na-dot"></span><span>لا ينطبق (N/A)</span></label>
+          </div>
+        </div>
+
+        <div class="req-item" id="req-9-4">
+          <div class="req-checkbox-wrap"><input type="checkbox" class="req-checkbox" id="cb-9-4" onchange="handleCheck(this,'req-9-4','feat-9')"></div>
+          <div class="req-content">
+            <label class="req-label" for="cb-9-4"><span class="priority-tag p-should">Should</span>إدارة المحتوى والإعدادات العامة</label>
+            <div class="req-desc">تعديل الشروط، الأسعار، الرسائل، إضافة مدن جديدة</div>
+            <div class="sub-questions">
+              <div class="sub-q">
+                <div class="sub-q-label">هل تحتاج صلاحيات متعددة (Super Admin / مدير عمليات / محاسب)؟</div>
+                <div class="sub-radio-group">
+                  <label class="choice-btn"><input type="radio" name="r-9-4-roles" onchange="toggleChoice(this)"> نعم — أدوار متعددة</label>
+                  <label class="choice-btn"><input type="radio" name="r-9-4-roles" onchange="toggleChoice(this)"> لا — مدير واحد</label>
+                </div>
+              </div>
+            </div>
+            <label class="na-toggle" id="na-9-4" onclick="toggleNA('req-9-4','na-9-4')"><input type="checkbox"><span class="na-dot"></span><span>لا ينطبق (N/A)</span></label>
+          </div>
+        </div>
+
+        <div class="req-item" id="req-9-5">
+          <div class="req-checkbox-wrap"><input type="checkbox" class="req-checkbox" id="cb-9-5" onchange="handleCheck(this,'req-9-5','feat-9')"></div>
+          <div class="req-content">
+            <label class="req-label" for="cb-9-5"><span class="priority-tag p-nice">Nice</span>إرسال إشعارات جماعية للمستخدمين</label>
+            <div class="req-desc">إرسال رسائل ترويجية أو تنبيهات لجميع المستخدمين أو شريحة محددة</div>
+            <div class="sub-questions">
+              <div class="sub-q">
+                <div class="sub-q-label">ما قنوات الإشعارات المطلوبة؟</div>
+                <div class="sub-check-group">
+                  <label class="choice-btn"><input type="checkbox" onchange="toggleChoice(this)"> Push Notification</label>
+                  <label class="choice-btn"><input type="checkbox" onchange="toggleChoice(this)"> SMS</label>
+                  <label class="choice-btn"><input type="checkbox" onchange="toggleChoice(this)"> البريد الإلكتروني</label>
+                </div>
+              </div>
+            </div>
+            <label class="na-toggle" id="na-9-5" onclick="toggleNA('req-9-5','na-9-5')"><input type="checkbox"><span class="na-dot"></span><span>لا ينطبق (N/A)</span></label>
+          </div>
+        </div>
+      </div>
+      <div class="section-summary">
+        <span id="feat-9-summary-text">0 من 5 متطلبات محددة</span>
+        <div class="section-check-bar"><div class="section-check-fill" id="feat-9-bar"></div></div>
+        <span id="feat-9-pct" style="font-family:'IBM Plex Mono',monospace;font-weight:700;color:var(--teal-d)">0%</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- FEATURE 10 — متطلبات هيئة النقل والامتثال            -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <div class="feature-section" id="feat-10">
+    <div class="feature-header" onclick="toggleFeature('feat-10')">
+      <div class="feat-number">10</div>
+      <div class="feat-title">الامتثال ومتطلبات هيئة النقل</div>
+      <div class="feat-meta">
+        <span class="feat-count" id="feat-10-count">0/4</span>
+        <span class="feat-chevron">▼</span>
+      </div>
+    </div>
+    <div class="feature-body">
+      <div class="req-group">
+        <div class="req-group-label">🏛️ المتطلبات التنظيمية</div>
+
+        <div class="req-item" id="req-10-1">
+          <div class="req-checkbox-wrap"><input type="checkbox" class="req-checkbox" id="cb-10-1" onchange="handleCheck(this,'req-10-1','feat-10')"></div>
+          <div class="req-content">
+            <label class="req-label" for="cb-10-1"><span class="priority-tag p-must">Must</span>التحقق من تصاريح هيئة النقل لمقدمي الخدمة</label>
+            <div class="req-desc">التأكد من أن كل سائق/شركة لديه تصريح نقل ساري</div>
+            <div class="sub-questions">
+              <div class="sub-q">
+                <div class="sub-q-label">كيف يتم التحقق؟</div>
+                <div class="sub-radio-group">
+                  <label class="choice-btn"><input type="radio" name="r-10-1-verify" onchange="toggleChoice(this)"> رفع يدوي + مراجعة الإدارة</label>
+                  <label class="choice-btn"><input type="radio" name="r-10-1-verify" onchange="toggleChoice(this)"> ربط مع API هيئة النقل (إن توفر)</label>
+                </div>
+              </div>
+            </div>
+            <label class="na-toggle" id="na-10-1" onclick="toggleNA('req-10-1','na-10-1')"><input type="checkbox"><span class="na-dot"></span><span>لا ينطبق (N/A)</span></label>
+          </div>
+        </div>
+
+        <div class="req-item" id="req-10-2">
+          <div class="req-checkbox-wrap"><input type="checkbox" class="req-checkbox" id="cb-10-2" onchange="handleCheck(this,'req-10-2','feat-10')"></div>
+          <div class="req-content">
+            <label class="req-label" for="cb-10-2"><span class="priority-tag p-must">Must</span>تنبيه انتهاء التصاريح والرخص</label>
+            <div class="req-desc">تنبيه السائق والإدارة قبل انتهاء تصريح النقل أو رخصة القيادة</div>
+            <div class="sub-questions">
+              <div class="sub-q">
+                <div class="sub-q-label">ما يحدث عند انتهاء التصريح بدون تجديد؟</div>
+                <div class="sub-radio-group">
+                  <label class="choice-btn"><input type="radio" name="r-10-2-expire" onchange="toggleChoice(this)"> إيقاف تلقائي للحساب</label>
+                  <label class="choice-btn"><input type="radio" name="r-10-2-expire" onchange="toggleChoice(this)"> تنبيه فقط مع فترة سماح</label>
+                </div>
+              </div>
+            </div>
+            <label class="na-toggle" id="na-10-2" onclick="toggleNA('req-10-2','na-10-2')"><input type="checkbox"><span class="na-dot"></span><span>لا ينطبق (N/A)</span></label>
+          </div>
+        </div>
+
+        <div class="req-item" id="req-10-3">
+          <div class="req-checkbox-wrap"><input type="checkbox" class="req-checkbox" id="cb-10-3" onchange="handleCheck(this,'req-10-3','feat-10')"></div>
+          <div class="req-content">
+            <label class="req-label" for="cb-10-3"><span class="priority-tag p-must">Must</span>الامتثال لمتطلبات ZATCA (الفوترة الإلكترونية)</label>
+            <div class="req-desc">دعم الفوترة الإلكترونية حسب متطلبات هيئة الزكاة والدخل</div>
+            <div class="sub-questions">
+              <div class="sub-q">
+                <div class="sub-q-label">ما مرحلة الفوترة المطلوبة؟</div>
+                <div class="sub-radio-group">
+                  <label class="choice-btn"><input type="radio" name="r-10-3-zatca" onchange="toggleChoice(this)"> المرحلة الأولى (الإصدار)</label>
+                  <label class="choice-btn"><input type="radio" name="r-10-3-zatca" onchange="toggleChoice(this)"> المرحلة الثانية (الربط والتكامل)</label>
+                </div>
+              </div>
+            </div>
+            <label class="na-toggle" id="na-10-3" onclick="toggleNA('req-10-3','na-10-3')"><input type="checkbox"><span class="na-dot"></span><span>لا ينطبق (N/A)</span></label>
+          </div>
+        </div>
+
+        <div class="req-item" id="req-10-4">
+          <div class="req-checkbox-wrap"><input type="checkbox" class="req-checkbox" id="cb-10-4" onchange="handleCheck(this,'req-10-4','feat-10')"></div>
+          <div class="req-content">
+            <label class="req-label" for="cb-10-4"><span class="priority-tag p-should">Should</span>تخزين السجلات لفترة محددة (Audit Trail)</label>
+            <div class="req-desc">الاحتفاظ بسجلات الرحلات والمعاملات للمتطلبات التنظيمية</div>
+            <div class="sub-questions">
+              <div class="sub-q">
+                <div class="sub-q-label">كم مدة الاحتفاظ بالسجلات؟</div>
+                <div class="sub-radio-group">
+                  <label class="choice-btn"><input type="radio" name="r-10-4-ret" onchange="toggleChoice(this)"> سنة</label>
+                  <label class="choice-btn"><input type="radio" name="r-10-4-ret" onchange="toggleChoice(this)"> 3 سنوات</label>
+                  <label class="choice-btn"><input type="radio" name="r-10-4-ret" onchange="toggleChoice(this)"> 5 سنوات</label>
+                </div>
+              </div>
+            </div>
+            <label class="na-toggle" id="na-10-4" onclick="toggleNA('req-10-4','na-10-4')"><input type="checkbox"><span class="na-dot"></span><span>لا ينطبق (N/A)</span></label>
+          </div>
+        </div>
+      </div>
+      <div class="section-summary">
+        <span id="feat-10-summary-text">0 من 4 متطلبات محددة</span>
+        <div class="section-check-bar"><div class="section-check-fill" id="feat-10-bar"></div></div>
+        <span id="feat-10-pct" style="font-family:'IBM Plex Mono',monospace;font-weight:700;color:var(--teal-d)">0%</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- FEATURE 11 — البنية التحتية والنشر                   -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <div class="feature-section" id="feat-11">
+    <div class="feature-header" onclick="toggleFeature('feat-11')">
+      <div class="feat-number">11</div>
+      <div class="feat-title">البنية التحتية والنشر التقني</div>
+      <div class="feat-meta">
+        <span class="feat-count" id="feat-11-count">0/4</span>
+        <span class="feat-chevron">▼</span>
+      </div>
+    </div>
+    <div class="feature-body">
+      <div class="req-group">
+        <div class="req-group-label">☁️ الاستضافة والأمان</div>
+
+        <div class="req-item" id="req-11-1">
+          <div class="req-checkbox-wrap"><input type="checkbox" class="req-checkbox" id="cb-11-1" onchange="handleCheck(this,'req-11-1','feat-11')"></div>
+          <div class="req-content">
+            <label class="req-label" for="cb-11-1"><span class="priority-tag p-must">Must</span>استضافة سحابية موثوقة</label>
+            <div class="sub-questions">
+              <div class="sub-q">
+                <div class="sub-q-label">ما مزود الاستضافة المفضل؟</div>
+                <div class="sub-radio-group">
+                  <label class="choice-btn"><input type="radio" name="r-11-1-host" onchange="toggleChoice(this)"> AWS</label>
+                  <label class="choice-btn"><input type="radio" name="r-11-1-host" onchange="toggleChoice(this)"> Google Cloud</label>
+                  <label class="choice-btn"><input type="radio" name="r-11-1-host" onchange="toggleChoice(this)"> DigitalOcean</label>
+                  <label class="choice-btn"><input type="radio" name="r-11-1-host" onchange="toggleChoice(this)"> نترك القرار للمطور</label>
+                </div>
+              </div>
+            </div>
+            <label class="na-toggle" id="na-11-1" onclick="toggleNA('req-11-1','na-11-1')"><input type="checkbox"><span class="na-dot"></span><span>لا ينطبق (N/A)</span></label>
+          </div>
+        </div>
+
+        <div class="req-item" id="req-11-2">
+          <div class="req-checkbox-wrap"><input type="checkbox" class="req-checkbox" id="cb-11-2" onchange="handleCheck(this,'req-11-2','feat-11')"></div>
+          <div class="req-content">
+            <label class="req-label" for="cb-11-2"><span class="priority-tag p-must">Must</span>نشر التطبيق على App Store و Google Play</label>
+            <div class="sub-questions">
+              <div class="sub-q">
+                <div class="sub-q-label">هل لديك حسابات مطور على المتاجر؟</div>
+                <div class="sub-radio-group">
+                  <label class="choice-btn"><input type="radio" name="r-11-2-store" onchange="toggleChoice(this)"> نعم — كلا المتجرين</label>
+                  <label class="choice-btn"><input type="radio" name="r-11-2-store" onchange="toggleChoice(this)"> نحتاج إنشاءها</label>
+                </div>
+              </div>
+            </div>
+            <label class="na-toggle" id="na-11-2" onclick="toggleNA('req-11-2','na-11-2')"><input type="checkbox"><span class="na-dot"></span><span>لا ينطبق (N/A)</span></label>
+          </div>
+        </div>
+
+        <div class="req-item" id="req-11-3">
+          <div class="req-checkbox-wrap"><input type="checkbox" class="req-checkbox" id="cb-11-3" onchange="handleCheck(this,'req-11-3','feat-11')"></div>
+          <div class="req-content">
+            <label class="req-label" for="cb-11-3"><span class="priority-tag p-should">Should</span>تشفير البيانات وحماية الخصوصية</label>
+            <div class="sub-questions">
+              <div class="sub-q">
+                <div class="sub-q-label">متطلبات الأمان</div>
+                <div class="sub-check-group">
+                  <label class="choice-btn"><input type="checkbox" onchange="toggleChoice(this)"> تشفير SSL/TLS</label>
+                  <label class="choice-btn"><input type="checkbox" onchange="toggleChoice(this)"> تشفير البيانات المخزنة</label>
+                  <label class="choice-btn"><input type="checkbox" onchange="toggleChoice(this)"> الامتثال لنظام حماية البيانات السعودي</label>
+                </div>
+              </div>
+            </div>
+            <label class="na-toggle" id="na-11-3" onclick="toggleNA('req-11-3','na-11-3')"><input type="checkbox"><span class="na-dot"></span><span>لا ينطبق (N/A)</span></label>
+          </div>
+        </div>
+
+        <div class="req-item" id="req-11-4">
+          <div class="req-checkbox-wrap"><input type="checkbox" class="req-checkbox" id="cb-11-4" onchange="handleCheck(this,'req-11-4','feat-11')"></div>
+          <div class="req-content">
+            <label class="req-label" for="cb-11-4"><span class="priority-tag p-nice">Nice</span>مراقبة الأداء وتنبيهات الأعطال</label>
+            <div class="req-desc">نظام مراقبة لأداء السيرفر والتطبيق مع تنبيهات فورية</div>
+            <div class="sub-questions">
+              <div class="sub-q">
+                <div class="sub-q-label">أدوات المراقبة المفضلة</div>
+                <div class="sub-check-group">
+                  <label class="choice-btn"><input type="checkbox" onchange="toggleChoice(this)"> Firebase Crashlytics</label>
+                  <label class="choice-btn"><input type="checkbox" onchange="toggleChoice(this)"> Sentry</label>
+                  <label class="choice-btn"><input type="checkbox" onchange="toggleChoice(this)"> Grafana/Prometheus</label>
+                </div>
+              </div>
+            </div>
+            <label class="na-toggle" id="na-11-4" onclick="toggleNA('req-11-4','na-11-4')"><input type="checkbox"><span class="na-dot"></span><span>لا ينطبق (N/A)</span></label>
+          </div>
+        </div>
+      </div>
+      <div class="section-summary">
+        <span id="feat-11-summary-text">0 من 4 متطلبات محددة</span>
+        <div class="section-check-bar"><div class="section-check-fill" id="feat-11-bar"></div></div>
+        <span id="feat-11-pct" style="font-family:'IBM Plex Mono',monospace;font-weight:700;color:var(--teal-d)">0%</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- FEATURE 12 — تشغيل المنصة وما بعد الإطلاق            -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <div class="feature-section" id="feat-12">
+    <div class="feature-header" onclick="toggleFeature('feat-12')">
+      <div class="feat-number">12</div>
+      <div class="feat-title">تشغيل المنصة وخطة ما بعد الإطلاق (3-6 أشهر)</div>
+      <div class="feat-meta">
+        <span class="feat-count" id="feat-12-count">0/5</span>
+        <span class="feat-chevron">▼</span>
+      </div>
+    </div>
+    <div class="feature-body">
+      <div class="req-group">
+        <div class="req-group-label">🚀 مرحلة ما بعد الإطلاق</div>
+
+        <div class="req-item" id="req-12-1">
+          <div class="req-checkbox-wrap"><input type="checkbox" class="req-checkbox" id="cb-12-1" onchange="handleCheck(this,'req-12-1','feat-12')"></div>
+          <div class="req-content">
+            <label class="req-label" for="cb-12-1"><span class="priority-tag p-must">Must</span>إضافة المنتجات (السيارات والخدمات) للمنصة وترتيبها</label>
+            <div class="req-desc">مرحلة التشغيل: إضافة بيانات السائقين والسيارات الأولية</div>
+            <div class="sub-questions">
+              <div class="sub-q">
+                <div class="sub-q-label sub-q-required">من يتولى إضافة البيانات الأولية؟</div>
+                <div class="sub-radio-group">
+                  <label class="choice-btn"><input type="radio" name="r-12-1-who" onchange="toggleChoice(this)"> فريق المنصة يدخل البيانات</label>
+                  <label class="choice-btn"><input type="radio" name="r-12-1-who" onchange="toggleChoice(this)"> مقدمو الخدمة يسجلون بأنفسهم</label>
+                  <label class="choice-btn"><input type="radio" name="r-12-1-who" onchange="toggleChoice(this)"> كلاهما</label>
+                </div>
+              </div>
+              <div class="sub-q">
+                <div class="sub-q-label">كم عدد مقدمي الخدمة المتوقعين عند الإطلاق؟</div>
+                <input type="text" class="sub-input" placeholder="مثال: 10، 50، 100...">
+              </div>
+            </div>
+            <label class="na-toggle" id="na-12-1" onclick="toggleNA('req-12-1','na-12-1')"><input type="checkbox"><span class="na-dot"></span><span>لا ينطبق (N/A)</span></label>
+          </div>
+        </div>
+
+        <div class="req-item" id="req-12-2">
+          <div class="req-checkbox-wrap"><input type="checkbox" class="req-checkbox" id="cb-12-2" onchange="handleCheck(this,'req-12-2','feat-12')"></div>
+          <div class="req-content">
+            <label class="req-label" for="cb-12-2"><span class="priority-tag p-must">Must</span>دعم فني وإصلاح الأخطاء بعد الإطلاق</label>
+            <div class="req-desc">فترة صيانة ومتابعة (3-6 أشهر) لإصلاح الأخطاء وتحسين الأداء</div>
+            <div class="sub-questions">
+              <div class="sub-q">
+                <div class="sub-q-label sub-q-required">ما مدة الدعم المطلوبة بعد الإطلاق؟</div>
+                <div class="sub-radio-group">
+                  <label class="choice-btn"><input type="radio" name="r-12-2-support" onchange="toggleChoice(this)"> 3 أشهر</label>
+                  <label class="choice-btn"><input type="radio" name="r-12-2-support" onchange="toggleChoice(this)"> 6 أشهر</label>
+                  <label class="choice-btn"><input type="radio" name="r-12-2-support" onchange="toggleChoice(this)"> سنة</label>
+                </div>
+              </div>
+              <div class="sub-q">
+                <div class="sub-q-label">ما ساعات الدعم المطلوبة؟</div>
+                <div class="sub-radio-group">
+                  <label class="choice-btn"><input type="radio" name="r-12-2-hours" onchange="toggleChoice(this)"> ساعات العمل (8-5)</label>
+                  <label class="choice-btn"><input type="radio" name="r-12-2-hours" onchange="toggleChoice(this)"> 24/7</label>
+                </div>
+              </div>
+            </div>
+            <label class="na-toggle" id="na-12-2" onclick="toggleNA('req-12-2','na-12-2')"><input type="checkbox"><span class="na-dot"></span><span>لا ينطبق (N/A)</span></label>
+          </div>
+        </div>
+
+        <div class="req-item" id="req-12-3">
+          <div class="req-checkbox-wrap"><input type="checkbox" class="req-checkbox" id="cb-12-3" onchange="handleCheck(this,'req-12-3','feat-12')"></div>
+          <div class="req-content">
+            <label class="req-label" for="cb-12-3"><span class="priority-tag p-should">Should</span>متابعة مؤشرات نجاح العملية (KPIs)</label>
+            <div class="req-desc">قياس أداء المنصة: عدد الرحلات، معدل الإلغاء، رضا العملاء</div>
+            <div class="sub-questions">
+              <div class="sub-q">
+                <div class="sub-q-label">ما المؤشرات الأهم لقياس النجاح؟</div>
+                <div class="sub-check-group">
+                  <label class="choice-btn"><input type="checkbox" onchange="toggleChoice(this)"> عدد الرحلات المكتملة</label>
+                  <label class="choice-btn"><input type="checkbox" onchange="toggleChoice(this)"> معدل الإلغاء</label>
+                  <label class="choice-btn"><input type="checkbox" onchange="toggleChoice(this)"> متوسط التقييم</label>
+                  <label class="choice-btn"><input type="checkbox" onchange="toggleChoice(this)"> معدل تكرار الاستخدام</label>
+                  <label class="choice-btn"><input type="checkbox" onchange="toggleChoice(this)"> الإيرادات الشهرية</label>
+                </div>
+              </div>
+            </div>
+            <label class="na-toggle" id="na-12-3" onclick="toggleNA('req-12-3','na-12-3')"><input type="checkbox"><span class="na-dot"></span><span>لا ينطبق (N/A)</span></label>
+          </div>
+        </div>
+
+        <div class="req-item" id="req-12-4">
+          <div class="req-checkbox-wrap"><input type="checkbox" class="req-checkbox" id="cb-12-4" onchange="handleCheck(this,'req-12-4','feat-12')"></div>
+          <div class="req-content">
+            <label class="req-label" for="cb-12-4"><span class="priority-tag p-should">Should</span>تدريب فريق التشغيل على استخدام لوحة التحكم</label>
+            <div class="sub-questions">
+              <div class="sub-q">
+                <div class="sub-q-label">ما نوع التدريب المطلوب؟</div>
+                <div class="sub-radio-group">
+                  <label class="choice-btn"><input type="radio" name="r-12-4-train" onchange="toggleChoice(this)"> جلسات تدريبية مباشرة (أونلاين)</label>
+                  <label class="choice-btn"><input type="radio" name="r-12-4-train" onchange="toggleChoice(this)"> فيديوهات تعليمية مسجلة</label>
+                  <label class="choice-btn"><input type="radio" name="r-12-4-train" onchange="toggleChoice(this)"> دليل استخدام مكتوب</label>
+                  <label class="choice-btn"><input type="radio" name="r-12-4-train" onchange="toggleChoice(this)"> الكل</label>
+                </div>
+              </div>
+            </div>
+            <label class="na-toggle" id="na-12-4" onclick="toggleNA('req-12-4','na-12-4')"><input type="checkbox"><span class="na-dot"></span><span>لا ينطبق (N/A)</span></label>
+          </div>
+        </div>
+
+        <div class="req-item" id="req-12-5">
+          <div class="req-checkbox-wrap"><input type="checkbox" class="req-checkbox" id="cb-12-5" onchange="handleCheck(this,'req-12-5','feat-12')"></div>
+          <div class="req-content">
+            <label class="req-label" for="cb-12-5"><span class="priority-tag p-nice">Nice</span>خطة تطوير مستقبلية (Roadmap)</label>
+            <div class="req-desc">خارطة طريق للميزات المستقبلية بعد الإطلاق الأول</div>
+            <div class="sub-questions">
+              <div class="sub-q">
+                <div class="sub-q-label">ما الميزات المستقبلية المتوقعة؟</div>
+                <textarea class="sub-textarea" placeholder="مثال: إضافة مدن جديدة، حجز جماعي، برنامج ولاء، دعم لغات إضافية..."></textarea>
+              </div>
+            </div>
+            <label class="na-toggle" id="na-12-5" onclick="toggleNA('req-12-5','na-12-5')"><input type="checkbox"><span class="na-dot"></span><span>لا ينطبق (N/A)</span></label>
+          </div>
+        </div>
+      </div>
+      <div class="section-summary">
+        <span id="feat-12-summary-text">0 من 5 متطلبات محددة</span>
+        <div class="section-check-bar"><div class="section-check-fill" id="feat-12-bar"></div></div>
+        <span id="feat-12-pct" style="font-family:'IBM Plex Mono',monospace;font-weight:700;color:var(--teal-d)">0%</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="actions-bar">
+  <div class="actions-inner">
+    <div class="actions-summary">
+      تم تحديد <strong id="bottom-checked">0</strong> من أصل <strong id="bottom-total">0</strong> متطلباً
+    </div>
+    <div class="btn-group">
+      <button class="btn btn-ghost" onclick="resetAll()">↺ إعادة ضبط</button>
+      <button class="btn btn-outline" onclick="expandAll()">↕ فتح الكل</button>
+      <button class="btn btn-primary" onclick="showSummary()">📋 ملخص المتطلبات</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="summary-modal" onclick="if(event.target===this)closeSummary()">
+  <div class="modal-box">
+    <div class="modal-head">
+      <h2>📋 ملخص المتطلبات المحددة</h2>
+      <button class="modal-close" onclick="closeSummary()">✕</button>
+    </div>
+    <div class="modal-body" id="modal-body-content"></div>
+  </div>
+</div>
+
+<script>
+const FEAT_COUNT = 12;
+const FEAT_TOTALS = {1:5,2:5,3:6,4:4,5:5,6:4,7:4,8:5,9:5,10:4,11:4,12:5};
+const FEAT_TITLES = {
+  1:'تسجيل المستخدمين والمصادقة',
+  2:'عرض الخدمات والسيارات',
+  3:'الحجز وإدارة الطلبات',
+  4:'تتبع السائق والرحلة (GPS)',
+  5:'المدفوعات وبوابة الدفع',
+  6:'الغرامات والعقوبات',
+  7:'التقييمات والمراجعات',
+  8:'واجهة التطبيق والتصميم',
+  9:'لوحة تحكم الإدارة',
+  10:'الامتثال ومتطلبات هيئة النقل',
+  11:'البنية التحتية والنشر',
+  12:'تشغيل المنصة وما بعد الإطلاق'
+};
+const TOTAL_REQS = Object.values(FEAT_TOTALS).reduce((a,b)=>a+b,0);
+
+function getCheckedInFeat(featId) {
+  const sec = document.getElementById('feat-'+featId);
+  return sec ? sec.querySelectorAll('.req-checkbox:checked').length : 0;
+}
+
+function updateFeatCounter(featId) {
+  const checked = getCheckedInFeat(featId);
+  const total = FEAT_TOTALS[featId];
+  const pct = total > 0 ? Math.round(checked/total*100) : 0;
+  const el = document.getElementById('feat-'+featId+'-count');
+  if(el) { el.textContent = checked+'/'+total; el.classList.toggle('has-checks', checked > 0); }
+  const st = document.getElementById('feat-'+featId+'-summary-text');
+  if(st) st.textContent = checked+' من '+total+' متطلبات محددة';
+  const bar = document.getElementById('feat-'+featId+'-bar');
+  if(bar) bar.style.width = pct+'%';
+  const pctEl = document.getElementById('feat-'+featId+'-pct');
+  if(pctEl) pctEl.textContent = pct+'%';
+}
+
+function updateGlobal() {
+  let total = 0;
+  for(let i=1;i<=FEAT_COUNT;i++) total += getCheckedInFeat(i);
+  const pct = Math.round(total/TOTAL_REQS*100);
+  document.getElementById('progress-label').textContent = total+' / '+TOTAL_REQS+' متطلب';
+  document.getElementById('global-bar').style.width = pct+'%';
+  document.getElementById('checked-reqs-count').textContent = total;
+  document.getElementById('bottom-checked').textContent = total;
+  document.getElementById('bottom-total').textContent = TOTAL_REQS;
+}
+
+function handleCheck(cb, reqId, featId) {
+  const item = document.getElementById(reqId);
+  item.classList.toggle('checked', cb.checked);
+  if(cb.checked) {
+    const naEl = document.getElementById('na-'+reqId.replace('req-',''));
+    if(naEl) naEl.classList.remove('active');
+    item.classList.remove('na-item');
+  }
+  const fn = featId.replace('feat-','');
+  updateFeatCounter(fn);
+  updateGlobal();
+}
+
+function toggleNA(reqId, naId) {
+  const item = document.getElementById(reqId);
+  const naEl = document.getElementById(naId);
+  const isActive = naEl.classList.contains('active');
+  naEl.classList.toggle('active', !isActive);
+  item.classList.toggle('na-item', !isActive);
+  if(!isActive) {
+    const cb = item.querySelector('.req-checkbox');
+    if(cb && cb.checked) {
+      cb.checked = false;
+      item.classList.remove('checked');
+      const featNum = reqId.split('-')[1];
+      updateFeatCounter(featNum);
+      updateGlobal();
+    }
+  }
+}
+
+function toggleFeature(featId) {
+  document.getElementById(featId).classList.toggle('open');
+}
+
+function toggleChoice(input) {
+  const btn = input.closest('.choice-btn');
+  if(input.type === 'radio') {
+    const group = input.closest('.sub-radio-group');
+    if(group) group.querySelectorAll('.choice-btn').forEach(b=>b.classList.remove('selected'));
+  }
+  btn.classList.toggle('selected', input.checked || input.type==='radio');
+  if(input.type === 'radio') btn.classList.add('selected');
+}
+
+function expandAll() {
+  for(let i=1;i<=FEAT_COUNT;i++) document.getElementById('feat-'+i).classList.add('open');
+}
+
+function resetAll() {
+  if(!confirm('هل تريد إعادة ضبط جميع التحديدات؟')) return;
+  document.querySelectorAll('.req-checkbox').forEach(cb=>{cb.checked=false;});
+  document.querySelectorAll('.req-item').forEach(el=>{el.classList.remove('checked','na-item');});
+  document.querySelectorAll('.na-toggle').forEach(el=>el.classList.remove('active'));
+  document.querySelectorAll('.choice-btn').forEach(el=>el.classList.remove('selected'));
+  document.querySelectorAll('.sub-input, .sub-textarea').forEach(el=>{el.value='';});
+  for(let i=1;i<=FEAT_COUNT;i++) updateFeatCounter(i);
+  updateGlobal();
+}
+
+function showSummary() {
+  let html = '';
+  let grandTotal = 0;
+  let featuresWithData = [];
+  for(let i=1;i<=FEAT_COUNT;i++) {
+    const checked = getCheckedInFeat(i);
+    if(checked===0) continue;
+    grandTotal += checked;
+    featuresWithData.push({id:i, checked, total:FEAT_TOTALS[i]});
+  }
+  html += '<div class="summary-big"><div class="summary-big-label">إجمالي المتطلبات المحددة<br><span style="font-size:12px;font-weight:500;opacity:.7">من أصل '+TOTAL_REQS+' متطلب</span></div><div class="summary-big-val">'+grandTotal+'</div></div>';
+  if(featuresWithData.length===0) {
+    html += '<p style="color:var(--gray);text-align:center;padding:20px">لم يتم تحديد أي متطلبات بعد</p>';
+  } else {
+    html += '<div class="modal-section-title">تفصيل حسب الميزة</div>';
+    for(const f of featuresWithData) {
+      const pct = Math.round(f.checked/f.total*100);
+      html += '<div class="summary-row"><span class="summary-row-name">'+FEAT_TITLES[f.id]+'</span><span class="summary-row-val">'+f.checked+' / '+f.total+' ('+pct+'%)</span></div>';
+    }
+    const inputs = document.querySelectorAll('.sub-input, .sub-textarea');
+    const filled = [];
+    inputs.forEach(inp => {
+      if(inp.value.trim()) {
+        const label = inp.closest('.sub-q')?.querySelector('.sub-q-label')?.textContent;
+        if(label) filled.push({label, value: inp.value.trim()});
+      }
+    });
+    if(filled.length > 0) {
+      html += '<div class="modal-section-title" style="margin-top:20px">ملاحظات وتفاصيل مُدخلة</div>';
+      for(const f of filled) {
+        html += '<div class="summary-row"><span class="summary-row-name" style="font-size:12.5px">'+f.label+'</span><span class="summary-row-val" style="max-width:220px;text-align:left">'+f.value.substring(0,80)+(f.value.length>80?'...':'')+'</span></div>';
+      }
+    }
+  }
+  html += '<div style="margin-top:20px;padding:14px;background:var(--teal-l);border-radius:8px;font-size:12.5px;color:var(--teal-d)"><strong>الخطوة التالية:</strong> أرسل هذا الملخص لفريق نواس لمطابقة المتطلبات مع عروض التطوير.<br><br><em>يمكنك طباعة الصفحة (Ctrl+P) للحصول على نسخة كاملة من الاستمارة.</em></div>';
+  document.getElementById('modal-body-content').innerHTML = html;
+  document.getElementById('summary-modal').classList.add('open');
+}
+
+function closeSummary() {
+  document.getElementById('summary-modal').classList.remove('open');
+}
+
+// Init
+document.getElementById('total-reqs-count').textContent = TOTAL_REQS;
+document.getElementById('bottom-total').textContent = TOTAL_REQS;
+for(let i=1;i<=FEAT_COUNT;i++) updateFeatCounter(i);
+updateGlobal();
+</script>
+</body>
+</html>

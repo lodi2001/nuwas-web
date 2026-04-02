@@ -71,20 +71,37 @@ export default function ContactForm({ header }: { header: SectionHeader }) {
                 />
                 <input
                   type="text"
-                  name="organization"
-                  placeholder="اسم الجهة / الشركة"
+                  name="company_name"
+                  placeholder="اسم الشركة / المؤسسة"
                 />
-                <select name="service_type" className="full-width" required>
-                  <option value="">نوع الخدمة المطلوبة</option>
-                  <option value="تطوير برمجيات">تطوير برمجيات</option>
-                  <option value="ذكاء اصطناعي">ذكاء اصطناعي</option>
-                  <option value="تحول رقمي">تحول رقمي</option>
+                <select name="project_type" required>
+                  <option value="">نوع المشروع</option>
+                  <option value="mobile_app">تطبيق جوال</option>
+                  <option value="web_platform">منصة ويب</option>
+                  <option value="ai_system">نظام ذكاء اصطناعي</option>
+                  <option value="digital_transformation">تحول رقمي</option>
+                  <option value="other">أخرى</option>
+                </select>
+                <select name="budget_range">
+                  <option value="undecided">نطاق الميزانية</option>
+                  <option value="under_50k">أقل من 50,000 ريال</option>
+                  <option value="50k_150k">50,000 - 150,000 ريال</option>
+                  <option value="150k_500k">150,000 - 500,000 ريال</option>
+                  <option value="over_500k">أكثر من 500,000 ريال</option>
+                </select>
+                <select name="timeline" className="full-width">
+                  <option value="flexible">الجدول الزمني</option>
+                  <option value="1_3_months">1-3 أشهر</option>
+                  <option value="3_6_months">3-6 أشهر</option>
+                  <option value="6_12_months">6-12 شهر</option>
                 </select>
                 <textarea
                   name="project_description"
                   className="full-width"
                   rows={4}
-                  placeholder="وصف المشروع"
+                  placeholder="وصف فكرة المشروع (50 حرف على الأقل)"
+                  minLength={50}
+                  required
                 />
                 <button
                   type="submit"

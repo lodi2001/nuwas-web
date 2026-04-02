@@ -1,0 +1,45 @@
+{% extends "admin/change_form.html" %}
+{% block after_field_sets %}
+<div style="margin:20px 0;padding:20px;background:#f8fafc;border-radius:12px;border:1px solid #e2e8f0">
+  <h3 style="margin-bottom:15px">🎛️ إجراءات الاستمارة</h3>
+
+  {% if original.status == 'new' or original.status == 'reviewed' %}
+  <a href="{% url 'admin-generate-questionnaire' original.pk %}"
+     class="button" style="background:#2563eb;color:#fff;padding:10px 20px;border-radius:8px;margin-left:10px;text-decoration:none"
+     onclick="return confirm('هل تريد توليد استمارة بالذكاء الاصطناعي لهذا الطلب؟')">
+    🤖 توليد الاستمارة
+  </a>
+  {% endif %}
+
+  {% if original.questionnaires.exists %}
+    {% with latest_q=original.questionnaires.last %}
+    <a href="{% url 'admin-preview-questionnaire' latest_q.pk %}" target="_blank"
+       class="button" style="background:#7c3aed;color:#fff;padding:10px 20px;border-radius:8px;margin-left:10px;text-decoration:none">
+      👁️ معاينة الاستمارة
+    </a>
+
+    {% if latest_q.status == 'draft' or latest_q.status == 'approved' %}
+    <a href="{% url 'admin-send-questionnaire' latest_q.pk %}"
+       class="button" style="background:#059669;color:#fff;padding:10px 20px;border-radius:8px;margin-left:10px;text-decoration:none"
+       onclick="return confirm('هل تريد إرسال الاستمارة للعميل عبر البريد الإلكتروني؟')">
+      📧 إرسال للعميل
+    </a>
+    {% endif %}
+
+    <a href="{% url 'admin-regenerate-questionnaire' latest_q.pk %}"
+       class="button" style="background:#d97706;color:#fff;padding:10px 20px;border-radius:8px;margin-left:10px;text-decoration:none"
+       onclick="return confirm('هل تريد إعادة توليد الاستمارة؟ سيتم إنشاء نسخة جديدة.')">
+      🔄 إعادة التوليد
+    </a>
+
+    <div style="margin-top:15px;padding:10px;background:#fff;border-radius:8px;font-size:13px">
+      <strong>آخر استمارة:</strong> الإصدار {{ latest_q.version }} —
+      {{ latest_q.total_features }} ميزة — {{ latest_q.total_requirements }} متطلب —
+      الحالة: {{ latest_q.get_status_display }}
+    </div>
+    {% endwith %}
+  {% else %}
+    <p style="color:#64748b;margin-top:10px">لم يتم توليد استمارة بعد لهذا الطلب.</p>
+  {% endif %}
+</div>
+{% endblock %}
