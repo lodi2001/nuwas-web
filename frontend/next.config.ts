@@ -13,6 +13,10 @@ const nextConfig: NextConfig = {
         source: "/media/:path*",
         destination: `${process.env.API_URL || "http://localhost:8008"}/media/:path*`,
       },
+      {
+        source: "/submit-contact/",
+        destination: `${process.env.API_URL || "http://localhost:8008"}/api/contact/`,
+      },
     ];
   },
 };
