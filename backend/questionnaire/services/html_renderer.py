@@ -270,7 +270,7 @@ body {{ font-family:'Cairo',sans-serif; background:var(--bg); color:var(--ink); 
                 html += '<div class="choice-group">'
                 for opt in options:
                     html += (
-                        f'<label class="choice-btn" onclick="this.classList.toggle(\'selected\')">'
+                        f'<label class="choice-btn" onclick="toggleCheckbox(this)">'
                         f'<input type="checkbox" value="{opt}"> {opt}</label>'
                     )
                 html += "</div>"
@@ -325,10 +325,23 @@ function toggleNA(rid) {{
     updateProgress();
 }}
 
+function toggleCheckbox(label) {{
+    setTimeout(function() {{
+        var input = label.querySelector('input[type="checkbox"]');
+        if (input.checked) {{
+            label.classList.add('selected');
+        }} else {{
+            label.classList.remove('selected');
+        }}
+    }}, 0);
+}}
+
 function selectRadio(el, name) {{
-    el.closest('.choice-group').querySelectorAll('.choice-btn').forEach(b => b.classList.remove('selected'));
-    el.classList.add('selected');
-    el.querySelector('input').checked = true;
+    setTimeout(function() {{
+        el.closest('.choice-group').querySelectorAll('.choice-btn').forEach(function(b) {{ b.classList.remove('selected'); }});
+        el.classList.add('selected');
+        el.querySelector('input').checked = true;
+    }}, 0);
 }}
 
 function updateProgress() {{
