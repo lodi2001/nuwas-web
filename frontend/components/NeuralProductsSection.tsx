@@ -157,13 +157,8 @@ export default function NeuralProductsSection({
             const mediaPath = logoSrc.match(/\/media\/.+/)?.[0];
             if (mediaPath) logoSrc = mediaPath;
           }
-          return (
-            <div
-              key={product.name}
-              className="product-node"
-              style={getNodeStyle(i, products.length)}
-              ref={(el) => { nodeRefs.current[i] = el; }}
-            >
+          const nodeContent = (
+            <>
               <Image
                 src={logoSrc}
                 alt={product.name}
@@ -177,6 +172,29 @@ export default function NeuralProductsSection({
                 <strong>{product.name}</strong>
                 <p>{product.description_ar}</p>
               </div>
+            </>
+          );
+
+          return product.link ? (
+            <a
+              key={product.name}
+              href={product.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="product-node"
+              style={{ ...getNodeStyle(i, products.length), textDecoration: "none" }}
+              ref={(el) => { nodeRefs.current[i] = el; }}
+            >
+              {nodeContent}
+            </a>
+          ) : (
+            <div
+              key={product.name}
+              className="product-node"
+              style={getNodeStyle(i, products.length)}
+              ref={(el) => { nodeRefs.current[i] = el; }}
+            >
+              {nodeContent}
             </div>
           );
         })}
