@@ -33,7 +33,7 @@ export default function NeuralProductsSection({
   const containerRef = useRef<HTMLDivElement>(null);
   const svgRef = useRef<SVGSVGElement>(null);
   const coreRef = useRef<HTMLDivElement>(null);
-  const nodeRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const nodeRefs = useRef<(HTMLElement | null)[]>([]);
   const configsRef = useRef<NodeConfig[]>([]);
 
   // Initialize node configs once
